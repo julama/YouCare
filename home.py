@@ -50,8 +50,4 @@ with st.form("Konto"):
             st.info('Willkommen {}. Erstelle jetzt dein persönliches Profil'.format(name))
 
 
-# load title image
-image = Image.open('assets/Intro_Screen.png')
-st.image(image)
-
 
