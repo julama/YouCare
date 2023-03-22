@@ -1,5 +1,4 @@
 import streamlit as st
-from PIL import Image
 import gspread as gs
 import pandas as pd
 #from yaml.loader import SafeLoader
