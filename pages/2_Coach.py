@@ -1,12 +1,12 @@
 import streamlit as st
 from streamlit_chat import message
-import requests
 import pandas as pd
 import torch
 from sentence_transformers.util import semantic_search
 from random import choice
-st.session_state['generated'] = []
-st.session_state['past'] = []
+from utils import *
+
+init_chat_session()
 
 st.title("Interaktiver Coach")
 
@@ -44,66 +44,73 @@ if len(thema_values) > 1:
 ### COACH ########
 ##################
 
-# Load file and precompute answers
-def process_file(file_path):
-    with open(file_path, 'r', encoding='utf-8') as file:
-        content = file.read()
-    lines = content.split('\n')
-    paragraphs = [line.strip().replace('\xad', '') for line in lines if line.strip()]
-    return paragraphs
-
 file_path = 'assets/text_resources/Wohnanpassung & Hilfsmittel.txt'
 All_answers = process_file(file_path)
 
 # Random tipps from topic
-st.write(f"#### Anregungen zum Thema {filtered_data['Thema'].to_string(index=False)}:")
-st.write(choice(All_answers))
+st.write(f"### Anregungen zum Thema {filtered_data['Thema'].to_string(index=False)}:")
+random_recomendation = choice(All_answers)
+
+# Create a container to hold the text output
+with st.container():
+    # Add custom CSS to create a box-like appearance
+    st.markdown("""
+        <style>
+            .box {
+                border: 1px;
+                border-radius: 10px;
+                padding: 20px;
+                background-color: #2B5071;
+                color: white;
+            }
+        </style>
+    """, unsafe_allow_html=True)
+
+    # Display the text output inside a div with the 'box' class
+    st.markdown(f"<div class='box'>{random_recomendation}</div>", unsafe_allow_html=True)
+
 
 model_id = "sentence-transformers/all-MiniLM-L6-v2"
 hf_token = st.secrets['api_key']
 api_url = f"https://api-inference.huggingface.co/pipeline/feature-extraction/{model_id}"
 headers = {"Authorization": f"Bearer {hf_token}"}
 
-#@retry(tries=3, delay=10)
-def query(texts):
-    response = requests.post(api_url, headers=headers, json={"inputs": texts})
-    result = response.json()
-    if isinstance(result, list):
-        return result
-    elif list(result.keys())[0] == "error":
-        st.info('Bitte habe einen Moment Geduld. Der Coach wird geladen')
 
-output_dataset = query(All_answers)
+output_dataset = query(All_answers, api_url, headers)
 embeddings = pd.DataFrame(output_dataset)
 dataset_embeddings = torch.from_numpy(embeddings.to_numpy()).to(torch.float)
 
-st.write(f"#### Stelle eine Frage zum Thema {filtered_data['Thema'].to_string(index=False)}")
-def get_text():
-    input_text = st.text_input(f"", "Schreibe hier deine Frage", key="input")
-    return input_text
+#add spacing
+st.write(f"####")
+st.write(f"####")
+st.write(f"### Stelle eine Frage zum Thema {filtered_data['Thema'].to_string(index=False)}")
 
-user_input = get_text()
+# Create a form
+with st.form("chat_form"):
+    user_input = get_text()
+
+    submit_button = st.form_submit_button("Antwort generieren")
+
+
+    # Check if the submit button is clicked
+    if submit_button:
+        if user_input:
+            output_user = query([user_input], api_url, headers)
+            query_embeddings = torch.FloatTensor(output_user)
+
+            hits = semantic_search(query_embeddings, dataset_embeddings, top_k=1)
+
+            answer = All_answers[hits[0][0]['corpus_id']]
+            st.session_state.past.append(user_input)
+            st.session_state.generated.append(answer)
+
+        if st.session_state['generated']:
+            for i in range(len(st.session_state['generated'])):
+                message(st.session_state["generated"][i], key=str(i))
+                message(st.session_state['past'][i], is_user=True, key=str(i) + '_user')
 
 # reset chat button
 if st.button('Reset Chat'):
     # Reset chat protocol
     st.session_state['generated'] = []
     st.session_state['past'] = []
-
-if user_input:
-    output_user = query([user_input])
-    query_embeddings = torch.FloatTensor(output_user)
-
-    hits = semantic_search(query_embeddings, dataset_embeddings, top_k=1)
-
-    answer = All_answers[hits[0][0]['corpus_id']]
-    st.session_state.past.append(user_input)
-    st.session_state.generated.append(answer)
-
-if st.session_state['generated']:
-    for i in range(0, len(st.session_state['generated'])):
-        message(st.session_state['past'][i], is_user=True, key=str(i) + '_user')
-        message(st.session_state["generated"][i], key=str(i))
-
-
-

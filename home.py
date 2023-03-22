@@ -47,6 +47,3 @@ with st.form("Konto"):
             st.session_state['User'] = name
             st.session_state['User_index'] = len(ws.col_values(1))
             st.info('Willkommen {}. Erstelle jetzt dein persönliches Profil'.format(name))
-
-
-
