@@ -16,6 +16,9 @@ data = pd.read_csv(file_path)
 
 st.write("### Was belastet dich gerade?")
 
+st.info("Es sind erst Antworten für 'Demenstadium: schwer' & 'Alltag aktiv gestalten' hinterlegt")
+
+
 # Select a value from the Demenzstadium column
 demenzstadium_values = data['Demenzstadium (!)'].unique()
 selected_demenzstadium = st.selectbox("Demenzstadium der betroffenen Person", demenzstadium_values)
@@ -49,7 +52,13 @@ All_answers = process_file(file_path)
 
 # Random tipps from topic
 st.write(f"### Anregungen zum Thema {filtered_data['Thema'].to_string(index=False)}:")
-random_recomendation = choice(All_answers)
+
+
+#temp fix: warning for not available content
+if filtered_data['Thema'].to_string(index=False) != "Wohnanpassung & Hilfsmittel":
+    random_recomendation = "Wir haben leider noch keine Antworten zu diesem Thema"
+else:
+    random_recomendation = choice(All_answers)
 
 # Create a container to hold the text output
 with st.container():
@@ -102,7 +111,11 @@ with st.form("chat_form"):
 
             answer = All_answers[hits[0][0]['corpus_id']]
             st.session_state.past.append(user_input)
-            st.session_state.generated.append(answer)
+            #temp fix: warning for not available content
+            if filtered_data['Thema'].to_string(index=False) != "Wohnanpassung & Hilfsmittel":
+                st.session_state.generated.append("Wir haben leider noch keine Antworten zu diesem Thema")
+            else:
+                st.session_state.generated.append(answer)
 
         if st.session_state['generated']:
             for i in range(len(st.session_state['generated'])):

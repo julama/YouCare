@@ -21,7 +21,7 @@ def get_text():
     input_text = st.text_input(f"", "Schreibe hier deine Frage", key="input")
     return input_text
 
-@st.cache_data
+#@st.cache_data
 def init_chat_session():
     st.session_state['generated'] = []
     st.session_state['past'] = []
