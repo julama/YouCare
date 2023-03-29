@@ -21,7 +21,25 @@ def get_text():
     input_text = st.text_input(f"", "Schreibe hier deine Frage", key="input")
     return input_text
 
-#@st.cache_data
 def init_chat_session():
     st.session_state['generated'] = []
     st.session_state['past'] = []
+
+
+# # Create a container to hold the text output
+# with st.container():
+#     # Add custom CSS to create a box-like appearance
+#     st.markdown("""
+#         <style>
+#             .box {
+#                 border: 1px;
+#                 border-radius: 10px;
+#                 padding: 20px;
+#                 background-color: #2B5071;
+#                 color: white;
+#             }
+#         </style>
+#     """, unsafe_allow_html=True)
+#
+#     # Display the text output inside a div with the 'box' class
+#     st.markdown(f"<div class='box'>{random_recomendation}</div>", unsafe_allow_html=True)

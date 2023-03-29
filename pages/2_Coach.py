@@ -6,7 +6,10 @@ from sentence_transformers.util import semantic_search
 from random import choice
 from utils import *
 
-init_chat_session()
+#intialize session state:
+if 'generated' not in st.session_state:
+    init_chat_session()
+
 
 st.title("Interaktiver Coach")
 
@@ -16,7 +19,7 @@ data = pd.read_csv(file_path)
 
 st.write("### Was belastet dich gerade?")
 
-st.info("Es sind erst Antworten für 'Demenstadium: schwer' & 'Alltag aktiv gestalten' hinterlegt")
+st.info("Es sind erst Antworten für 'Demenzstadium: schwer' & 'Alltag aktiv gestalten' hinterlegt")
 
 
 # Select a value from the Demenzstadium column
@@ -50,34 +53,7 @@ if len(thema_values) > 1:
 file_path = 'assets/text_resources/Wohnanpassung & Hilfsmittel.txt'
 All_answers = process_file(file_path)
 
-# Random tipps from topic
-st.write(f"### Anregungen zum Thema {filtered_data['Thema'].to_string(index=False)}:")
-
-
-#temp fix: warning for not available content
-if filtered_data['Thema'].to_string(index=False) != "Wohnanpassung & Hilfsmittel":
-    random_recomendation = "Wir haben leider noch keine Antworten zu diesem Thema"
-else:
-    random_recomendation = choice(All_answers)
-
-# Create a container to hold the text output
-with st.container():
-    # Add custom CSS to create a box-like appearance
-    st.markdown("""
-        <style>
-            .box {
-                border: 1px;
-                border-radius: 10px;
-                padding: 20px;
-                background-color: #2B5071;
-                color: white;
-            }
-        </style>
-    """, unsafe_allow_html=True)
-
-    # Display the text output inside a div with the 'box' class
-    st.markdown(f"<div class='box'>{random_recomendation}</div>", unsafe_allow_html=True)
-
+random_recomendation = choice(All_answers)
 
 model_id = "sentence-transformers/all-MiniLM-L6-v2"
 hf_token = st.secrets['api_key']
@@ -92,13 +68,18 @@ dataset_embeddings = torch.from_numpy(embeddings.to_numpy()).to(torch.float)
 #add spacing
 st.write(f"####")
 st.write(f"####")
-st.write(f"### Stelle eine Frage zum Thema {filtered_data['Thema'].to_string(index=False)}")
+st.write(f"### Verfeinere deine Suche mit Stichworten oder Stelle einer Frage zum Thema {filtered_data['Thema'].to_string(index=False)}")
 
 # Create a form
 with st.form("chat_form"):
     user_input = get_text()
 
-    submit_button = st.form_submit_button("Antwort generieren")
+    col1, col2, col3 = st.columns([0.25, 0.25, 0.5])
+
+    with col1:
+        submit_button = st.form_submit_button("Neue Antwort generieren")
+    with col2:
+        feedback_button = st.form_submit_button("Diese Antwort war hilfreich")
 
 
     # Check if the submit button is clicked
@@ -113,14 +94,15 @@ with st.form("chat_form"):
             st.session_state.past.append(user_input)
             #temp fix: warning for not available content
             if filtered_data['Thema'].to_string(index=False) != "Wohnanpassung & Hilfsmittel":
-                st.session_state.generated.append("Wir haben leider noch keine Antworten zu diesem Thema")
+                st.session_state.generated.append(f"Ich finde leider ich keine passende Antwort zu diesem Thema. Aber vielleicht hilft dir diese Anregung weiter: \n \n {random_recomendation}")
             else:
                 st.session_state.generated.append(answer)
 
-        if st.session_state['generated']:
-            for i in range(len(st.session_state['generated'])):
-                message(st.session_state["generated"][i], key=str(i))
-                message(st.session_state['past'][i], is_user=True, key=str(i) + '_user')
+    if st.session_state['generated']:
+        for i in range(len(st.session_state['generated'])-1,-1,-1):
+            message(st.session_state["generated"][i], key=str(i))
+            message(st.session_state['past'][i], is_user=True, key=str(i) + '_user')
+
 
 # reset chat button
 if st.button('Reset Chat'):
