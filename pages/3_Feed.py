@@ -63,9 +63,10 @@ def local_css(file_name):
 local_css("assets/style.css")
 
 for idx, answer in enumerate(All_answers):
-    expander_text = f'{random_thema[idx % len(random_thema)]} (click to view answer)'
+    expander_text = f'{random_thema[idx % len(random_thema)]}'
     with st.expander(expander_text, expanded=False):
         columns = st.columns([0.85, 0.075, 0.075])
         columns[0].markdown(f'<span style="font-size: 20px;">{answer}</span>', unsafe_allow_html=True)
         columns[1].button("👍", key=f"like_{answer}")
         columns[2].button("👎", key=f"dislike_{answer}")
+
