@@ -25,6 +25,36 @@ def init_chat_session():
     st.session_state['generated'] = []
     st.session_state['past'] = []
 
+def custom_button(item, key, is_selected):
+    button_css = f"""<style>
+        .{key} {{
+            border-radius: 25px;
+            background-color: {'#f63366' if is_selected else '#ffffff'};
+            color: {'white' if is_selected else 'black'};
+            padding: 0.25em 0.5em;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border: 2px solid #f63366;
+        }}
+    </style>"""
+
+    button_js = f"""<script>
+        function handleClick{key}() {{
+            var button = document.getElementById("{key}");
+            var is_selected = button.classList.contains("selected");
+            button.style.backgroundColor = is_selected ? "#ffffff" : "#f63366";
+            button.style.color = is_selected ? "black" : "white";
+            button.classList.toggle("selected");
+        }}
+    </script>"""
+
+    return f"{button_css}{button_js}<button class='{key}' id='{key}' onclick='handleClick{key}()'>{item}</button>"
+
+
 
 # # Create a container to hold the text output
 # with st.container():
