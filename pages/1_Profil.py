@@ -1,9 +1,14 @@
 import streamlit as st
 import gspread as gs
 import pandas as pd
+from utils import init_profile
 
 # title
 st.title('Wo befindest du dich?')
+
+#intialize session state:
+if 'profile' not in st.session_state:
+    init_profile()
 
 # Google sheet DB login
 creds = st.secrets["gcp_service_account"]
@@ -32,25 +37,43 @@ col1, col2 = st.columns(2)
 # Create questionaire for user profile
 with st.form("User_profil"):
     submitted = st.form_submit_button("Antworten speichern")
+
     with col1:
         st.subheader("Über dich")
         name_carer = st.text_input("Dein Name")
-        alter_carer = st.number_input("Dein Alter")
-        wohnsituation = st.selectbox("Name der betroffenen Person",
-                                     ["Im selben haushalt", "Wohnitz in der Nähe", "Wohnitz nicht in der Nähe"])
-        betreuung = st.slider("Wie ist die Betreuungsituation (100 = Ich betreue alleine)")
-    with col2:
-        st.subheader("Über die erkrankte Person")
-        name_patient = st.text_input("Name der betroffenen Person")
-        alter_patient = st.number_input("Alter der betroffenen Person")
-        familiensituation = st.selectbox("Die zu betreuende Person ist mein/e",
-                                         ["Mutter/Vater", "Schwester/Bruder", "PartnerIn", "Anderes"])
+        alter_carer = st.number_input("Dein Alter", min_value=1,
+                                      max_value=130,
+                                      step=1,
+                                      format="%d")
+        wohnsituation = st.selectbox("Wohnsituation",
+                                     ["im gleichen Haushalt", "unmittelbare Nähe", "weiter weg"])
+        betreuung = st.slider(f"Ich betreue zu ... Prozent", min_value=0, max_value=100,
+                              value=50)
 
+    with col2:
+        st.subheader("Über die betroffene Person")
+        name_patient = st.text_input("Name")
+        alter_patient = st.number_input("Alter", min_value=1,
+                                        max_value=130,
+                                        step=1,
+                                        format="%d")
+        beziehung = st.selectbox("Die zu betreuende Person ist mein/e",
+                                 ["Mutter/Vater", "Schwester/Bruder", "PartnerIn", "Anderes"])
+        diagnose = st.selectbox("Es besteht eine Alzheimer Diagnose", ["Ja", "Nein"])
+        if diagnose=="Ja":
+            Demenzstadium = st.selectbox("Demenzstadium", ["leicht", "mittel", "schwer"])
+        else:
+            Demenzstadium=""
 
     # Store profile in DB
     if submitted:
-        user_infos = [[name_carer, alter_carer, name_patient, alter_patient, wohnsituation, familiensituation, betreuung]]
-        "C{0}:I{0}".format(st.session_state['User_index'])
-        ws.update("C{0}:I{0}".format(st.session_state['User_index']), user_infos)
-
-
+        user_infos = [[name_carer, alter_carer, name_patient, alter_patient, wohnsituation, beziehung, betreuung,diagnose, Demenzstadium]]
+        #"C{0}:I{0}".format(st.session_state['User_index'])
+        #ws.update("C{0}:I{0}".format(st.session_state['User_index']), user_infos)
+        st.session_state.profile = {
+            "Wohnsituation (!)": wohnsituation,
+            "Betreeung": betreuung,
+            "Beziehung": beziehung,
+            "Diagnose (!)": diagnose,
+            "Demenzstadium (!)": Demenzstadium
+        }
