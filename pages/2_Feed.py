@@ -1,8 +1,6 @@
 import streamlit as st
-import pandas as pd
-import random
 from utils import *
-from notion_client import Client
+#from notion_client import Client
 import streamlit.components.v1 as components
 from assets.html import html_string
 
@@ -95,7 +93,7 @@ def local_css(file_name):
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 local_css("assets/style.css")
 
-st.subheader("Entecke andere Themen:")
+st.subheader("Entecke weitere Themen:")
 for thema in random_thema:
     answer = "Für dieses Thema haben wir noch keine passenden Infos"
 
@@ -110,11 +108,4 @@ for thema in random_thema:
         #columns[1].button("👍", key=f"like_{answer}")
         #columns[2].button("👎", key=f"dislike_{answer}")
 
-# for idx, answer in enumerate(All_answers):
-#     expander_text = f'{random_thema[idx % len(random_thema)]}'
-#     with st.expander(expander_text, expanded=False):
-#         columns = st.columns([0.85, 0.075, 0.075])
-#         columns[0].markdown(f'<span style="font-size: 20px;">{answer}</span>', unsafe_allow_html=True)
-#         columns[1].button("👍", key=f"like_{answer}")
-#         columns[2].button("👎", key=f"dislike_{answer}")
 
