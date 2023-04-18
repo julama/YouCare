@@ -26,7 +26,7 @@ if "profile" not in st.session_state:
     st.stop()
 else:
     profile = st.session_state.profile
-filtered_data, combined_data = filter_data_profile(data, profile)
+    filtered_data, combined_data = filter_data_profile(data, profile)
 
 # Get unique values from "Thema" and "Hauptbereich" columns
 unique_thema_filtered = filtered_data["Thema"].unique()
