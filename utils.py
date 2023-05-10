@@ -2,69 +2,96 @@ import requests
 import streamlit as st
 import pandas as pd
 import numpy as np
+import nltk
+nltk.download('punkt')
 
-def parse_text_file(file_path):
-    with open(file_path, 'r', encoding='utf-8') as file:
-        content = file.read()
 
-    sections = content.split('@')[1:]
-    parsed_data = {}
+def on_save_button_click(section_title):
+    if 'bookmarks' not in st.session_state:
+        st.session_state['bookmarks'] = {}
+    st.session_state['bookmarks'][section_title] = True
+    st.success(f"Saved: {section_title}")
 
-    for section in sections:
-        lines = section.strip().split('\n')
-        section_title = lines.pop(0).strip()
-        topic = lines.pop(0).strip()
 
-        if topic not in parsed_data:
-            parsed_data[topic] = {}
-
-        if section_title.lower() == "summary":
-            parsed_data[topic][section_title] = ' '.join(lines)
-        else:
-            if any('- ' in line for line in lines):
-                section_dict = {}
-                section_counter = 1
-                section_text = ''
-                for line in lines:
-                    if '- ' in line:
-                        if section_text:
-                            section_name = f"{section_title}_{section_counter}"
-                            section_dict[section_name] = section_text.strip()
-                            section_counter += 1
-                        section_text = line.replace('- ', '')
-                    else:
-                        section_text += f' {line}'
-                section_name = f"{section_title}_{section_counter}"
-                section_dict[section_name] = section_text.strip()
-                parsed_data[topic][section_title] = section_dict
-            else:
-                parsed_data[topic][section_title] = ' '.join(lines)
-
-    return parsed_data
-
-def display_data(parsed_data, max_expanders_per_section=3):
+def display_feed(parsed_data, max_expanders_per_section=3):
     for topic, sections in parsed_data.items():
         for section_title, content in sections.items():
-            section_title_with_topic = f"{section_title}: {topic[:-1]}"
+            section_title_with_topic = f"{topic[:-1]}: {section_title}"
             expander_counter = 0
             if isinstance(content, dict):
-                all_subsection_contents = ""
                 for idx, sub_cont in enumerate(content.items()):
                     subsection_title, subsection_content = sub_cont
-                    all_subsection_contents += f"**{subsection_title[:-2]} {idx+1}**\n\n{subsection_content}\n\n"
-                if expander_counter < max_expanders_per_section:
-                    with st.expander(section_title_with_topic, expanded=False):
-                        columns = st.columns([0.85, 0.075, 0.075])
-                        columns[0].markdown(f'<span style="font-size: 20px;">{all_subsection_contents}</span>', unsafe_allow_html=True)
-                        columns[1].button("💾", key=f"like_{section_title_with_topic}")
-                    expander_counter += 1
+                    section_title_with_subsection = f"{section_title_with_topic} - {subsection_title}"
+
+                    # Count the number of sentences in the subsection_content
+                    num_sentences = len(nltk.sent_tokenize(subsection_content))
+
+                    # Set expanded to True if num_sentences <= 2, else set it to False
+                    expanded = num_sentences <= 2
+
+                    if expander_counter < max_expanders_per_section:
+                        with st.expander(section_title_with_subsection, expanded=expanded):
+                            columns = st.columns([0.85, 0.075, 0.075])
+                            columns[0].markdown(f'<span style="font-size: 20px;">{subsection_content}</span>',
+                                                unsafe_allow_html=True)
+                            if columns[1].button("💾", key=f"like_{section_title_with_subsection}"):
+                                on_save_button_click(section_title_with_subsection)
+                        expander_counter += 1
             else:
                 if expander_counter < max_expanders_per_section:
                     with st.expander(section_title_with_topic, expanded=False):
                         columns = st.columns([0.85, 0.075, 0.075])
                         columns[0].markdown(f'<span style="font-size: 20px;">{content}</span>', unsafe_allow_html=True)
-                        columns[1].button("💾", key=f"like_{section_title_with_topic}")
+                        if columns[1].button("💾", key=f"like_{section_title_with_topic}"):
+                            on_save_button_click(section_title_with_topic)
                     expander_counter += 1
+
+
+def display_bookmarks(parsed_data, max_expanders_per_section=3):
+    if 'bookmarks' not in st.session_state:
+        st.session_state['bookmarks'] = {}
+
+    bookmarks = st.session_state['bookmarks']
+
+    for topic, sections in parsed_data.items():
+        for section_title, content in sections.items():
+            section_title_with_topic = f"{topic[:-1]}: {section_title}"
+            expander_counter = 0
+            if isinstance(content, dict):
+                for idx, sub_cont in enumerate(content.items()):
+                    subsection_title, subsection_content = sub_cont
+                    section_title_with_subsection = f"{section_title_with_topic} - {subsection_title}"
+
+                    # Check if the item is in bookmarks
+                    if section_title_with_subsection in bookmarks:
+
+                        # Count the number of sentences in the subsection_content
+                        num_sentences = len(nltk.sent_tokenize(subsection_content))
+
+                        # Set expanded to True if num_sentences <= 2, else set it to False
+                        expanded = num_sentences <= 2
+
+                        if expander_counter < max_expanders_per_section:
+                            with st.expander(section_title_with_subsection, expanded=expanded):
+                                columns = st.columns([0.85, 0.075, 0.075])
+                                columns[0].markdown(f'<span style="font-size: 20px;">{subsection_content}</span>',
+                                                    unsafe_allow_html=True)
+                                if columns[1].button("💾", key=f"like_{section_title_with_subsection}"):
+                                    on_save_button_click(section_title_with_subsection)
+                            expander_counter += 1
+            else:
+                # Check if the item is in bookmarks
+                if section_title_with_topic in bookmarks:
+                    if expander_counter < max_expanders_per_section:
+                        with st.expander(section_title_with_topic, expanded=False):
+                            columns = st.columns([0.85, 0.075, 0.075])
+                            columns[0].markdown(f'<span style="font-size: 20px;">{content}</span>',
+                                                unsafe_allow_html=True)
+                            if columns[1].button("💾", key=f"like_{section_title_with_topic}"):
+                                on_save_button_click(section_title_with_topic)
+                        expander_counter += 1
+
+
 
 @st.cache_data
 def process_file(file_path):
@@ -124,7 +151,9 @@ def init_chat_session():
     st.session_state['past'] = []
 
 def init_profile():
-    st.session_state['profile'] = []
+    st.session_state['profile'] = None
+    st.session_state['selected_hauptbereich'] = None
+    st.session_state['selected_thema'] = None
 
 def custom_button(item, key, is_selected):
     button_css = f"""<style>
@@ -242,28 +271,7 @@ def random_feed(p, k=5):
 
     return sel_other_topics
 
-def display_book(parsed_data):
-    # Sidebar for section selection
-    st.sidebar.title("Sections")
-    section_names = list(parsed_data.keys())
-    current_section = st.sidebar.selectbox("Select a section", section_names)
 
-    # Sidebar for topic selection within the selected section
-    st.sidebar.title("Topics")
-    topic_names = list(parsed_data[current_section].keys())
-    current_topic = st.sidebar.selectbox("Select a topic", topic_names)
-
-    # Display the content of the selected topic
-    st.title(f"{current_section} {current_topic}")
-    content = parsed_data[current_section][current_topic]
-
-    if isinstance(content, dict):
-        for subsection_title, subsection_content in content.items():
-            with st.expander(f"{subsection_title[:-2]}", expanded=False):
-                columns = st.columns([0.85, 0.075, 0.075])
-                columns[0].markdown(f'<span style="font-size: 20px;">{subsection_content}</span>', unsafe_allow_html=True)
-    else:
-        st.markdown(f'<span style="font-size: 20px;">{content}</span>', unsafe_allow_html=True)
 
 
 # # Create a container to hold the text output
