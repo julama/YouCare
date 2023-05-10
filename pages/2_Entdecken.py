@@ -26,7 +26,7 @@ else:
 selected_thema = st.session_state['selected_thema']
 selected_hauptbereich = st.session_state['selected_hauptbereich']
 
-data
+#data
 
 # Score Sortierkriterien based on profile and selection
 sel_thema, scores_other_topics = scoring_function(data, selected_thema, selected_hauptbereich, profile)

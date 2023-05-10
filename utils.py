@@ -216,8 +216,7 @@ def filter_data_profile(data, profile):
 
 def scoring_function(data, selected_thema, selected_hauptbereich, profile):
     # Create a new dataframe 'scores' with the same index as 'data' and initialize all values to 0
-    scores = pd.DataFrame(0, index=data["Thema"], columns=data.columns)
-    data = data.set_index(data["Thema"])
+    scores = pd.DataFrame(0, index=data.index, columns=data.columns)
     max_entries = dict([(d, 0) for d in data.columns])
 
     sel_hautpbereich = [k for k,v in selected_hauptbereich.items() if v]
