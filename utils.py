@@ -4,7 +4,6 @@ from coach_tools import *
 import pandas as pd
 import numpy as np
 import nltk
-from streamlit_modal import Modal
 import re
 import unicodedata
 import streamlit.components.v1 as components
