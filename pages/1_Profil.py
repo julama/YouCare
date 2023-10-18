@@ -38,7 +38,7 @@ df = pd.DataFrame(ws.get_all_records())
 if not st.session_state.profile: #todo: or if stored in DB
     default_name_carer = ""
     default_alter_carer = 60
-    default_betreuung = 50
+    default_betreuung = "ich bin berufstaetig"
     default_name_patient = ""
     default_alter_patient = 60
     default_beziehung = "PartnerIn"
@@ -48,7 +48,7 @@ if not st.session_state.profile: #todo: or if stored in DB
 else:
     default_name_carer = st.session_state.profile.get("name_carer")
     default_alter_carer = st.session_state.profile.get("alter_carer")
-    default_betreuung = st.session_state.profile.get("betreuung")
+    default_betreuung = st.session_state.profile.get("Berufstätigkeit (!)")
     default_name_patient = st.session_state.profile.get("name_patient")
     default_alter_patient = st.session_state.profile.get("alter_patient")
     default_beziehung = st.session_state.profile.get("beziehung")
@@ -68,7 +68,16 @@ with st.form("User_profil"):
         wohnsituationen = ["im gleichen Haushalt", "unmittelbare Nähe", "weiter weg"]
         ws_index = wohnsituationen.index(default_wohnsituation)
         wohnsituation = st.selectbox("Wohnsituation", wohnsituationen, index=ws_index)
-        betreuung = st.slider(f"Ich betreue zu ... Prozent", min_value=0, max_value=100, value=default_betreuung)
+
+        betreuung = ["ich bin berufstaetig", "weitere Angehoerige arbeiten", "anderes"]
+        betreuung_index = betreuung.index(default_betreuung)
+        berufstaetigkeit = st.selectbox("Berufstaetigkeit", betreuung, index=betreuung_index)
+
+        # betreuung = st.toggle('Ich bin Berufstätig / Kann nicht zu 100% betreuen', value=default_betreuung)
+        # st.write(betreuung)
+        # if betreuung:
+        #     berufstätigkeit = "arbeitet"
+        #betreuung = st.slider(f"Ich betreue zu ... Prozent", min_value=0, max_value=100, value=default_betreuung)
 
     with col2:
         st.subheader("Über die betroffene Person")
@@ -83,13 +92,11 @@ with st.form("User_profil"):
         diagnose_index = diagnose_choices.index(default_diagnose)
         diagnose = st.selectbox("Es besteht eine Alzheimer Diagnose", diagnose_choices, index=diagnose_index)
 
-        if diagnose == "Ja":
-            demenzstadium_choices = ["leicht", "mittel", "schwer"]
-            demenzstadium_index = demenzstadium_choices.index(
-                default_demenzstadium) if default_demenzstadium in demenzstadium_choices else 0
-            Demenzstadium = st.selectbox("Demenzstadium", demenzstadium_choices, index=demenzstadium_index)
-        else:
-            Demenzstadium = ""
+        demenzstadium_choices = ["leicht", "mittel", "schwer"]
+        demenzstadium_index = demenzstadium_choices.index(
+            default_demenzstadium) if default_demenzstadium in demenzstadium_choices else 0
+        Demenzstadium = st.selectbox("Demenzstadium", demenzstadium_choices, index=demenzstadium_index)
+
 
     # Store profile in DB
     #if submitted:
@@ -100,7 +107,7 @@ with st.form("User_profil"):
         st.session_state.profile = {
             "name_carer": name_carer,
             "alter_carer": alter_carer,
-            "betreuung": betreuung,
+            "Berufstätigkeit (!)": berufstaetigkeit,
             "name_patient": name_patient,
             "alter_patient": alter_patient,
             "beziehung": beziehung,

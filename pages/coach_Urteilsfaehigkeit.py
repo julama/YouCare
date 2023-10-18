@@ -5,11 +5,11 @@ from config import to_hide_pages
 from st_pages import hide_pages
 
 hide_pages(to_hide_pages)
-name = "Urteilsfaehigkeit"
+name = "Urteilsfähigkeit"
 
 file_path = "assets/Kategorien_Sortierkriterien.csv"
 data = load_data(file_path)
-HK = data[data['Thema'].apply(normalize_string) == name]['Hauptbereich'].iloc[0]
+HK = data[data['Thema'].apply(normalize_string) == normalize_string(name)]['Hauptbereich'].iloc[0]
 
 if st.button('Zurück'):
         switch_page("coach")

@@ -29,11 +29,12 @@ selected_hauptbereich = st.session_state['selected_hauptbereich']
 
 # Score Sortierkriterien based on profile and selection
 filtered_data, combined_data = filter_data_profile(data, profile)
-sel_thema, scores_other_topics = scoring_function(data, selected_thema, selected_hauptbereich, profile)
+sel_thema, scores_other_topics, scores = scoring_function(data, selected_thema, selected_hauptbereich, profile)
 random_thema = random_feed(scores_other_topics)
 sel_thema_values = get_selected_thema(selected_thema)
 data_sorted, your_feed = sort_score(random_thema, data, sel_thema_values, 6)
 
+# your_feed
 st.header('Deine Themen')
 cols = st.columns(3)
 for i in range(len(your_feed)):

@@ -146,6 +146,7 @@ def scoring_function(data, selected_thema, selected_hauptbereich, profile):
     scores = pd.DataFrame(0, index=data.index, columns=data.columns)
     max_entries = dict([(d, 0) for d in data.columns])
 
+    #todo: add profile selection to selection? option: if no thema selected.
     sel_hautpbereich = [k for k,v in selected_hauptbereich.items() if v]
     sel_thema = [k for k, v in selected_thema.items() if v]
     selection = sel_hautpbereich+sel_thema
@@ -169,12 +170,15 @@ def scoring_function(data, selected_thema, selected_hauptbereich, profile):
             for idx, value in data[column].iteritems():
                 if isinstance(value, str):
                     column_values = value.split(", ")
-                    count = sum([1 for item in column_values if item == profile[column]])
+                    count = sum([1 for item in column_values if normalize_string(item) == normalize_string(profile[column])])
                     scores.at[idx, column] = count
                     # store maximum # entries
                     if len(column_values) > max_count:
                         max_count = len(column_values)
                         max_entries[column] = max_count
+                else:
+                    # adding scores for empty variables -> possible: weighted based on user recommendations
+                    scores.at[idx, column] = 0.75
 
     # Normalize the scores per column
     to_normalize = ["Nebenbereiche"]
@@ -186,25 +190,18 @@ def scoring_function(data, selected_thema, selected_hauptbereich, profile):
     other_topics = scores.loc[~scores.index.isin(sel_thema), "sum"]
     scores_other_topics = other_topics / other_topics.sum()
 
-    #selected = [k for k, v in selected_thema.items() if v]
-
-    return sel_thema, scores_other_topics
+    return sel_thema, scores_other_topics, scores
 
 def random_feed(df, k=24):
     p = df.values
-
-    epsilon = 0.0001
+    epsilon = 0.000001
     p = p + epsilon
-
     # Normalize the probabilities to ensure they sum to one
     p /= p.sum()
-
     # Sample k indices based on probabilities
     sampled_indices = np.random.choice(df.index, size=k, replace=False, p=p)
-
     # Extract rows corresponding to the sampled indices
     sampled_series = df.loc[sampled_indices]
-
     return sampled_series
 
 
@@ -214,6 +211,10 @@ def sort_score(random_thema, data, selected_thema, k):
     data['scores'] = s
     # Calculate sums of 's'-scores per 'Hauptbereich' category
     sum_scores = data.groupby('Hauptbereich')['scores'].sum()
+    # Get group sizes for each 'Hauptbereich'
+    group_sizes = data['Hauptbereich'].value_counts()
+    # Normalize the sum_scores by group size
+    sum_scores = sum_scores / group_sizes
     # Map 'Hauptbereich' values to their sum_scores
     data['Hauptbereich_scores'] = data['Hauptbereich'].map(sum_scores)
     # Sort df according to 'Hauptbereich' scores and 'Thema' scores within each 'Hauptbereich'
@@ -263,9 +264,6 @@ def display_thema_items(thema, items, thema_text, category):
         item_index = item
         if "Hilfestellungen" in data and 0 <= item_index < len(data["Hilfestellungen"]):
             content_value = data["Hilfestellungen"][item_index]
-            #st.write(content_value)
-            #if st.button("🗑️", key=f"save_{thema}_{item}"):
-                #on_remove_button_click(category, thema, item)
 
             columns = st.columns([0.85, 0.075, 0.075])
             columns[0].markdown(f'<span style="font-size: 20px;">{content_value}</span>',
