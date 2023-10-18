@@ -22,7 +22,7 @@ data = load_data(file_path)
 if "bookmarks" not in st.session_state:
     st.session_state.bookmarks = {}  # Initialize bookmarks if not already present
 
-
+st.session_state.bookmarks
 if not st.session_state.bookmarks:
     st.info("Du hast noch keine Inhalte in deiner Sammlung gespeichert")
 display_all_saved_items()
