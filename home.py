@@ -1,8 +1,19 @@
 import streamlit as st
 import gspread as gs
 import pandas as pd
+from st_pages import Page, show_pages, add_page_title, Section, hide_pages
+from config import to_hide_pages, to_show_pages
+st.set_page_config(layout="wide")
+
 #from yaml.loader import SafeLoader
 #import streamlit_authenticator as stauth
+st.title('Willkommen bei You+Care, deinem persönlichen Pflege Coach')
+st.write("• Erstelle zuerst ein Konto und wechsle dann zu Profil 👤")
+st.write("• Das Profil kannst du jederzeit anpassen und verändern")
+st.write("• Nachdem du dein Profil gespeichert hast, werden dir Themen vorgeschlagen")
+st.write("• Wähle für dich relevante Themen und Unterkategorien aus")
+st.write("• Wechsle dann zu Coach :teacher: um mehr über die Themen zu erfahren")
+
 
 # title
 st.title('Erstelle ein Konto')
@@ -47,3 +58,8 @@ with st.form("Konto"):
             st.session_state['User'] = name
             st.session_state['User_index'] = len(ws.col_values(1))
             st.info('Willkommen {}. Erstelle jetzt dein persönliches Profil'.format(name))
+
+
+from config import to_hide_pages, to_show_pages
+show_pages(to_show_pages)
+hide_pages(to_hide_pages)

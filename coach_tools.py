@@ -36,6 +36,25 @@ def parse_text_file(file_path):
 
     return parsed_data
 
+# Function to parse the text file
+def parse_text_file2(file_content):
+    sections = ["Zusammenfassung", "Herausforderungen", "Hilfestellungen"]
+    section_data = {}
+
+    current_section = None
+    lines = file_content.splitlines()
+
+    for line in lines:
+        line = line.strip()
+        if not line:
+            continue  # Skip empty lines
+        if line in sections:
+            current_section = line
+            section_data[current_section] = []
+        elif current_section:
+            section_data[current_section].append(line)
+
+    return section_data
 def display_book(parsed_data):
     # Sidebar for section selection
     st.sidebar.title("Kapitel")
