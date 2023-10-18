@@ -157,7 +157,7 @@ def scoring_function(data, selected_thema, selected_hauptbereich, profile):
         max_count = 0
         if column in ["Thema","Hauptbereich","Nebenbereiche"]:
             st.write("Processing column:", column)
-            for idx, value in data[column].iteritems():
+            for idx, value in data[column].items():
                 if isinstance(value, str):
                     column_values = value.split(",")
                     count = sum([1 for item in column_values if item.strip() in selection])
@@ -169,7 +169,7 @@ def scoring_function(data, selected_thema, selected_hauptbereich, profile):
 
         elif column in profile.keys():
             max_count = 0
-            for idx, value in data[column].iteritems():
+            for idx, value in data[column].items():
                 if isinstance(value, str):
                     column_values = value.split(", ")
                     count = sum([1 for item in column_values if normalize_string(item) == normalize_string(profile[column])])
