@@ -1,8 +1,8 @@
 import streamlit as st
 import gspread as gs
 import pandas as pd
-from st_pages import Page, show_pages, add_page_title, Section, hide_pages
-from config import to_hide_pages, to_show_pages
+from st_pages import show_pages, hide_pages
+
 st.set_page_config(layout="wide")
 
 #from yaml.loader import SafeLoader
