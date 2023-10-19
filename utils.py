@@ -152,11 +152,9 @@ def scoring_function(data, selected_thema, selected_hauptbereich, profile):
     selection = sel_hautpbereich+sel_thema
 
     # iterate over columns and distribute scores
-    st.write(data.columns)
     for column in data.columns:
         max_count = 0
         if column in ["Thema","Hauptbereich","Nebenbereiche"]:
-            st.write("Processing column:", column)
             for idx, value in data[column].items():
                 if isinstance(value, str):
                     column_values = value.split(",")
