@@ -9,7 +9,7 @@ name = "Körperpflege und Toilette"
 
 file_path = "assets/Kategorien_Sortierkriterien.csv"
 data = load_data(file_path)
-HK = data[data['Thema'].apply(normalize_string) == name]['Hauptbereich'].iloc[0]
+HK = data[data['Thema'].apply(normalize_string) == normalize_string(name)]['Hauptbereich'].iloc[0]
 
 if st.button('Zurück'):
         switch_page("coach")
