@@ -7,6 +7,7 @@ st.set_page_config(layout="wide")
 
 #from yaml.loader import SafeLoader
 #import streamlit_authenticator as stauth
+#todo: add disclaimer-> Es ist eine Testversion, es kann sein...
 st.title('Willkommen bei You+Care, deinem persönlichen Pflege Coach')
 st.write("• Erstelle zuerst ein Konto und wechsle dann zu Profil 👤")
 st.write("• Das Profil kannst du jederzeit anpassen und verändern")
