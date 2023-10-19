@@ -1,7 +1,7 @@
 import os
 import shutil
 
-directory_path = '/Users/julian/PycharmProjects/YouCare/resources/docs/HK'
+directory_path = '/resources/docs/HK'
 
 # Get the list of .txt files in the specified directory
 txt_files = [filename for filename in os.listdir(directory_path) if filename.endswith('.txt')]
