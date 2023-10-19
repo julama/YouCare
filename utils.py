@@ -143,10 +143,9 @@ def filter_data_profile(data, profile):
 
 def scoring_function(data, selected_thema, selected_hauptbereich, profile):
     # Create a new dataframe 'scores' with the same index as 'data' and initialize all values to 0
-    scores = pd.DataFrame(0, index=data.index, columns=data.columns)
+    scores = pd.DataFrame(0., index=data.index, columns=data.columns)
     max_entries = dict([(d, 0) for d in data.columns])
 
-    #todo: add profile selection to selection? option: if no thema selected.
     sel_hautpbereich = [k for k,v in selected_hauptbereich.items() if v]
     sel_thema = [k for k, v in selected_thema.items() if v]
     selection = sel_hautpbereich+sel_thema
@@ -248,7 +247,7 @@ def normalize_string(s):
     return unicodedata.normalize('NFKD', s).encode('utf-8', 'ignore').decode('utf-8')
 
 def load_text_resources(thema):
-    file_path = f"resources/docs/{thema}.txt"
+    file_path = f"resources/docs/{umlauts(thema)}.txt"
     try:
         with open(file_path, "r", encoding="utf-8") as file:
             return file.read()

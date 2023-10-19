@@ -5,11 +5,11 @@ from config import to_hide_pages
 from st_pages import hide_pages
 
 hide_pages(to_hide_pages)
-name = "Schwierige Gesprächssituationen"
+name = "Schwierige Gesprächssituationen"
 
 file_path = "assets/Kategorien_Sortierkriterien.csv"
 data = load_data(file_path)
-HK = data[data['Thema'].apply(normalize_string) == name]['Hauptbereich'].iloc[0]
+HK = data[data['Thema'].apply(normalize_string) == normalize_string(name)]['Hauptbereich'].iloc[0]
 
 if st.button('Zurück'):
         switch_page("coach")
@@ -17,7 +17,7 @@ if st.button('Zurück'):
 import streamlit as st
 
 # Read the .txt file
-with open(f"resources/docs/{name}.txt", "r", encoding="utf-8") as file:
+with open(f"resources/docs/{umlauts(name)}.txt", "r", encoding="utf-8") as file:
     text_content = file.read()
 
 if text_content is not None:
