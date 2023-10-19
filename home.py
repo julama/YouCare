@@ -1,9 +1,13 @@
 import streamlit as st
 import gspread as gs
 import pandas as pd
+from config import to_hide_pages, to_show_pages
 from st_pages import show_pages, hide_pages
-
 st.set_page_config(layout="wide")
+
+
+show_pages(to_show_pages)
+hide_pages(to_hide_pages)
 
 #from yaml.loader import SafeLoader
 #import streamlit_authenticator as stauth
@@ -61,6 +65,3 @@ with st.form("Konto"):
             st.info('Willkommen {}. Erstelle jetzt dein persönliches Profil'.format(name))
 
 
-from config import to_hide_pages, to_show_pages
-show_pages(to_show_pages)
-hide_pages(to_hide_pages)

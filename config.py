@@ -27,7 +27,7 @@ to_show_pages =[
         Page("pages/coach_vorsorgeundfinanzierung.py", "Vorsorge und Finanzierung"),
         Page("pages/coach_behandlung.py", "Behandlung"),
         Page("pages/coach_sichverstaendigen.py", "Sich verstaendigen"),
-        Page("pages/coach_unterstuetzungfürangehoerige.py", "Unterstuetzung fuer Angehoerige"),
+        Page("pages/coach_unterstuetzungfuerangehoerige.py", "Unterstuetzung fuer Angehoerige"),
         Page("pages/coach_nachderdiagnose.py", "Nach der Diagnose"),
         Page("pages/coach_herausforderndesituationen.py", "Herausfordernde Situationen"),
         Page("pages/coach_krankheitswissendemenz.py", "Krankheitswissen Demenz"),
@@ -67,7 +67,6 @@ to_hide_pages = [
     "Alltag aktiv gestalten",
     "Urteilsfaehigkeit",
     "Patientenverfuegung",
-    "Sich verstaendigen",
     "Unterstuetzung fuer Angehoerige",
 ]
 
