@@ -26,6 +26,7 @@ st.write(" ")
 
 selected_thema = st.session_state['selected_thema']
 selected_hauptbereich = st.session_state['selected_hauptbereich']
+store_user_selection = selected_hauptbereich, selected_thema
 
 # Score Sortierkriterien based on profile and selection
 filtered_data, combined_data = filter_data_profile(data, profile)

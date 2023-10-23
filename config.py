@@ -2,7 +2,7 @@ from st_pages import Page
 to_show_pages =[
         Page("home.py", "Login", "🏠"),
         Page("pages/1_Profil.py", "Profil", "👤"),
-        Page("pages/2_Coach.py", "Coach", ":teacher:"),
+        Page("pages/2_Coach.py", "Ratgeber", ":teacher:"),
         Page("pages/3_Gespeichert.py", "Meine Sammlung", ":books:"),
         Page("pages/coach_entlastungsangebote.py", "Entlastungsangebote"),
         Page("pages/coach_vorsorgeauftrag.py", "Vorsorgeauftrag"),
@@ -80,7 +80,6 @@ emoji_dict = {
     "Schmerzen": "😣",
     "Abklärung und Diagnose": "🏥",
     "Autofahren": "🚗",
-    "Vorsorge und Finanzierung": "💰",
     "Behandlung": "💉",
     "Körperpflege und Toilette": "🛁",
     "An- und Auskleiden": "👕",
@@ -93,6 +92,5 @@ emoji_dict = {
     "Finanzielle Ansprüche": "💰",
     "Patientenverfügung": "📄",
     "Urteilsfähigkeit": "🧠",
-    "Vorsorgeauftrag": "📝",
-    "Testament": "📜",
+    "Vorsorgeauftrag": "📝"
 }

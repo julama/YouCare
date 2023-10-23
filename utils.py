@@ -1,11 +1,13 @@
 import requests
+import streamlit
+
 from coach_tools import *
 import pandas as pd
 import numpy as np
-import nltk
+#import nltk
 import re
 import unicodedata
-nltk.download('punkt')
+#nltk.download('punkt')
 
 def init_chat_session():
     st.session_state['generated'] = []
@@ -15,6 +17,8 @@ def init_profile():
     st.session_state['profile'] = None
     st.session_state['selected_hauptbereich'] = None
     st.session_state['selected_thema'] = None
+    if 'User_index' not in st.session_state:
+        st.session_state['User_index'] = None
 
 def load_data(path):
     return pd.read_csv(path, encoding="utf-8")
@@ -28,6 +32,12 @@ def on_save_button_click(HK, theme, item):
         theme_list.append(item)
         st.success(f"Saved: {HK, theme, item}")
 
+def load_data(path):
+    return pd.read_csv(path)
+
+def keeper(key):
+    # Get the updated value of the checkbox and store it in the 'selected_hauptbereich' session_state
+    st.session_state['selected_hauptbereich'][key] = st.session_state['_' + key]
 
 def on_remove_button_click(HK, theme, item):
     bookmarks = st.session_state.get('bookmarks', {})
@@ -113,9 +123,23 @@ def get_selected_thema(dictionary):
 
 
 def filter_data_profile(data, profile):
+    """
+    Filters the provided data based on a user profile.
+
+    Parameters:
+    - data (pd.DataFrame): The data to be filtered.
+    - profile (dict): The user profile containing criteria to filter the data.
+
+    Returns:
+    - filtered_data (pd.DataFrame): Data that matches the user profile criteria.
+    - combined_data (pd.DataFrame): Concatenation of filtered_data and data that did not match the criteria.
+
+    Description:
+    The function filters the data based on the user's profile. It creates masks for specific profile items and applies these masks to the data. The resultant data is a combination of rows that match the profile and rows that do not.
+    """
     #todo: take argument what profile items to filter
 
-    # String mapping
+    #String mapping
     wohnsituation = profile["Wohnsituation (!)"]
     diagnose = profile["Diagnose (!)"]
     Demenzstadium = profile["Demenzstadium (!)"]
@@ -136,12 +160,27 @@ def filter_data_profile(data, profile):
     # Concatenate filtered_data and inverse_mask_data
     combined_data = pd.concat([filtered_data, inverse_mask_data], ignore_index=True)
 
-    #todo: filter data sequential. e.g. if stadium mittel-> remove leicht
-
     return filtered_data, combined_data
 
 
 def scoring_function(data, selected_thema, selected_hauptbereich, profile):
+    """
+    Assigns scores to the provided data based on selected criteria and user profile.
+
+    Parameters:
+    - data (pd.DataFrame): The data to be scored.
+    - selected_thema (dict): Selected themes by the user.
+    - selected_hauptbereich (dict): Selected main areas by the user.
+    - profile (dict): The user profile.
+
+    Returns:
+    - sel_thema (list): List of selected themes.
+    - scores_other_topics (pd.Series): Normalized scores for other topics.
+    - scores (pd.DataFrame): Scores assigned to each row of the data.
+
+    Description:
+    The function assigns scores to each row of the data based on how well it matches the selected criteria and the user's profile. The scores are then normalized and returned.
+    """
     # Create a new dataframe 'scores' with the same index as 'data' and initialize all values to 0
     scores = pd.DataFrame(0., index=data.index, columns=data.columns)
     max_entries = dict([(d, 0) for d in data.columns])
@@ -191,7 +230,20 @@ def scoring_function(data, selected_thema, selected_hauptbereich, profile):
 
     return sel_thema, scores_other_topics, scores
 
-def random_feed(df, k=24):
+def random_feed(df, k=22):
+    """
+    Randomly selects a subset of rows based on their scores.
+
+    Parameters:
+    - df (pd.DataFrame): The data to be sampled.
+    - k (int, optional): Number of rows to sample. Default is 24.
+
+    Returns:
+    - sampled_series (pd.Series): Randomly sampled rows based on scores.
+
+    Description:
+    The function randomly samples a subset of rows from the provided data based on their scores. The probability of a row being selected is proportional to its score.
+    """
     p = df.values
     epsilon = 0.000001
     p = p + epsilon
@@ -205,6 +257,23 @@ def random_feed(df, k=24):
 
 
 def sort_score(random_thema, data, selected_thema, k):
+    """
+    Sorts the provided data based on scores and selected themes.
+
+    Parameters:
+    - random_thema (pd.Series): Randomly sampled themes.
+    - data (pd.DataFrame): The data to be sorted.
+    - selected_thema (list): List of selected themes.
+    - k (int): Number of top-scored themes to be included in the final feed.
+
+    Returns:
+    - hauptbereich_sorted (pd.DataFrame): Data sorted based on Hauptbereich scores.
+    - your_feed (list): Final feed containing selected themes and top-scored items.
+
+    Description:
+    The function sorts the data based on scores. It then constructs a final feed by combining the selected themes and top-scored items.
+    """
+
     s = pd.Series(random_thema)
     # Map 'Thema' values to their 's' scores
     data['scores'] = s
@@ -265,7 +334,7 @@ def display_thema_items(thema, items, thema_text, category):
             content_value = data["Hilfestellungen"][item_index]
 
             columns = st.columns([0.85, 0.075, 0.075])
-            columns[0].markdown(f'<span style="font-size: 20px;">{content_value}</span>',
+            columns[0].markdown(f'<span style="font-size: 20px;">{extract_content_after_number(content_value)}</span>',
                                 unsafe_allow_html=True)
 
             if columns[1].button("🗑️", key=f"remove_{thema}_{item}"):
@@ -285,3 +354,7 @@ def display_all_saved_items():
                 thema_text = load_text_resources(thema)
                 if thema_text:
                     display_thema_items(thema, items, thema_text, category)
+
+def extract_content_after_number(text):
+    match = re.search(r'\d+\.\s*(.*)', text)
+    return match.group(1) if match else None

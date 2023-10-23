@@ -1,9 +1,8 @@
-import streamlit as st
 import gspread as gs
-import pandas as pd
-from utils import init_profile
+from utils import *
 from st_pages import add_page_title, hide_pages
 from config import to_hide_pages
+from streamlit_extras.switch_page_button import switch_page
 hide_pages(to_hide_pages)
 add_page_title()
 
@@ -13,6 +12,14 @@ st.title('Erstelle dein Profil')
 #intialize session state:
 if 'profile' not in st.session_state:
     init_profile()
+
+if not st.session_state['User_index']:
+    st.warning("Bitte logge dich zuerst ein")
+    if st.button('Login'):
+        switch_page("Login")
+    else:
+        st.stop()
+user_index=st.session_state['User_index']
 
 # Google sheet DB login
 creds = st.secrets["gcp_service_account"]
@@ -35,16 +42,20 @@ sh = gc.open_by_url(st.secrets["public_gsheets_url"])
 ws = sh.worksheet('DB_login')
 df = pd.DataFrame(ws.get_all_records())
 
-if not st.session_state.profile: #todo: or if stored in DB
-    default_name_carer = ""
-    default_alter_carer = 60
-    default_betreuung = "ich bin berufstaetig"
-    default_name_patient = ""
-    default_alter_patient = 60
-    default_beziehung = "PartnerIn"
-    default_wohnsituation = "im gleichen Haushalt"
-    default_diagnose = "Nein"
-    default_demenzstadium = ""
+desired_row = df.iloc[user_index-2]
+stored_profile = desired_row.loc['name_carer':'demenzstadium']
+
+if not st.session_state.get('profile'):
+    # Use stored values from the database if they exist, otherwise use defaults
+    default_name_carer = stored_profile['name_carer'] if stored_profile['name_carer'] else ""
+    default_alter_carer = stored_profile['alter_carer'] if stored_profile['alter_carer'] else 60
+    default_betreuung = stored_profile['betreuung'] if stored_profile['betreuung'] else "ich bin berufstaetig"
+    default_name_patient = stored_profile['name_patient'] if stored_profile['name_patient'] else ""
+    default_alter_patient = stored_profile['alter_patient'] if stored_profile['alter_patient'] else 60
+    default_beziehung = stored_profile['beziehung'] if stored_profile['beziehung'] else "PartnerIn"
+    default_wohnsituation = stored_profile['wohnsituation'] if stored_profile['wohnsituation'] else "im gleichen Haushalt"
+    default_diagnose = stored_profile['diagnose'] if stored_profile['diagnose'] else "Nein"
+    default_demenzstadium = stored_profile['demenzstadium'] if stored_profile['demenzstadium'] else ""
 else:
     default_name_carer = st.session_state.profile.get("name_carer")
     default_alter_carer = st.session_state.profile.get("alter_carer")
@@ -59,73 +70,56 @@ else:
 # Define basic layout / columns
 col1, col2 = st.columns(2)
 # Create questionaire for user profile
-with st.form("User_profil"):
-    with col1:
-        st.subheader("Über dich")
-        name_carer = st.text_input("Dein Name", value=default_name_carer)
-        alter_carer = st.number_input("Dein Alter", min_value=1, max_value=130, step=1, format="%d",
-                                      value=default_alter_carer)
-        wohnsituationen = ["im gleichen Haushalt", "unmittelbare Nähe", "weiter weg"]
-        ws_index = wohnsituationen.index(default_wohnsituation)
-        wohnsituation = st.selectbox("Wohnsituation", wohnsituationen, index=ws_index)
+with col1:
+    st.subheader("Über dich")
+    name_carer = st.text_input("Dein Name", value=default_name_carer)
+    alter_carer = st.number_input("Dein Alter", min_value=1, max_value=130, step=1, format="%d",
+                                  value=default_alter_carer)
+    wohnsituationen = ["im gleichen Haushalt", "unmittelbare Nähe", "weiter weg"]
+    ws_index = wohnsituationen.index(default_wohnsituation)
+    wohnsituation = st.selectbox("Wohnsituation", wohnsituationen, index=ws_index)
 
-        betreuung = ["ich bin berufstaetig", "weitere Angehoerige arbeiten", "anderes"]
-        betreuung_index = betreuung.index(default_betreuung)
-        berufstaetigkeit = st.selectbox("Berufstaetigkeit", betreuung, index=betreuung_index)
+    betreuung = ["ich bin berufstaetig", "weitere Angehoerige arbeiten", "anderes"]
+    betreuung_index = betreuung.index(default_betreuung)
+    berufstaetigkeit = st.selectbox("Berufstaetigkeit", betreuung, index=betreuung_index)
 
-        # betreuung = st.toggle('Ich bin Berufstätig / Kann nicht zu 100% betreuen', value=default_betreuung)
-        # st.write(betreuung)
-        # if betreuung:
-        #     berufstätigkeit = "arbeitet"
-        #betreuung = st.slider(f"Ich betreue zu ... Prozent", min_value=0, max_value=100, value=default_betreuung)
+with col2:
+    st.subheader("Über die betroffene Person")
+    name_patient = st.text_input("Name", value=default_name_patient)
+    alter_patient = st.number_input("Alter", min_value=1, max_value=130, step=1, format="%d",
+                                    value=default_alter_patient)
+    beziehung_choices = ["Mutter/Vater", "Schwester/Bruder", "PartnerIn", "Anderes"]
+    beziehung_index = beziehung_choices.index(default_beziehung)
+    beziehung = st.selectbox("Die zu betreuende Person ist mein/e", beziehung_choices, index=beziehung_index)
 
-    with col2:
-        st.subheader("Über die betroffene Person")
-        name_patient = st.text_input("Name", value=default_name_patient)
-        alter_patient = st.number_input("Alter", min_value=1, max_value=130, step=1, format="%d",
-                                        value=default_alter_patient)
-        beziehung_choices = ["Mutter/Vater", "Schwester/Bruder", "PartnerIn", "Anderes"]
-        beziehung_index = beziehung_choices.index(default_beziehung)
-        beziehung = st.selectbox("Die zu betreuende Person ist mein/e", beziehung_choices, index=beziehung_index)
+    diagnose_choices = ["Ja", "Nein"]
+    diagnose_index = diagnose_choices.index(default_diagnose)
+    diagnose = st.selectbox("Es besteht eine Alzheimer Diagnose", diagnose_choices, index=diagnose_index)
 
-        diagnose_choices = ["Ja", "Nein"]
-        diagnose_index = diagnose_choices.index(default_diagnose)
-        diagnose = st.selectbox("Es besteht eine Alzheimer Diagnose", diagnose_choices, index=diagnose_index)
-
-        demenzstadium_choices = ["leicht", "mittel", "schwer"]
-        demenzstadium_index = demenzstadium_choices.index(
-            default_demenzstadium) if default_demenzstadium in demenzstadium_choices else 0
-        Demenzstadium = st.selectbox("Demenzstadium", demenzstadium_choices, index=demenzstadium_index)
+    demenzstadium_choices = ["leicht", "mittel", "schwer"]
+    demenzstadium_index = demenzstadium_choices.index(
+        default_demenzstadium) if default_demenzstadium in demenzstadium_choices else 0
+    demenzstadium = st.selectbox("Demenzstadium", demenzstadium_choices, index=demenzstadium_index)
 
 
-    # Store profile in DB
-    #if submitted:
-    if True:
-        user_infos = [[name_carer, alter_carer, name_patient, alter_patient, wohnsituation, beziehung, betreuung,diagnose, Demenzstadium]]
-        #"C{0}:I{0}".format(st.session_state['User_index'])
-        #ws.update("C{0}:I{0}".format(st.session_state['User_index']), user_infos)
-        st.session_state.profile = {
-            "name_carer": name_carer,
-            "alter_carer": alter_carer,
-            "Berufstätigkeit (!)": berufstaetigkeit,
-            "name_patient": name_patient,
-            "alter_patient": alter_patient,
-            "beziehung": beziehung,
-            "Wohnsituation (!)": wohnsituation,
-            "Demenzstadium (!)": Demenzstadium,
-            "Diagnose (!)": diagnose
-        }
+# Store profile in DB
+user_infos = [[name_carer, alter_carer, name_patient, alter_patient, wohnsituation, beziehung, berufstaetigkeit, diagnose, demenzstadium]]
+ws.update(f"D{user_index}:L{user_index}", user_infos)
+st.session_state.profile = {
+    "name_carer": name_carer,
+    "alter_carer": alter_carer,
+    "Berufstätigkeit (!)": berufstaetigkeit,
+    "name_patient": name_patient,
+    "alter_patient": alter_patient,
+    "beziehung": beziehung,
+    "Wohnsituation (!)": wohnsituation,
+    "Demenzstadium (!)": demenzstadium,
+    "Diagnose (!)": diagnose
+}
 
 ############
 ## Themen
 ############
-
-from utils import *
-
-# Load the CSV file
-#st.cache_resource
-def load_data(path):
-    return pd.read_csv(path)
 
 file_path = "assets/Kategorien_Sortierkriterien.csv"
 data = load_data(file_path)
@@ -137,11 +131,6 @@ st.write("---")
 st.title("Was beschäftigt dich?")
 st.subheader("Diese Themen passen zu deinem Profil. Markiere was für dich von Bedeutung ist:")
 
-def keeper(key):
-    # Get the updated value of the checkbox and store it in the 'selected_hauptbereich' session_state
-    st.session_state['selected_hauptbereich'][key] = st.session_state['_' + key]
-
-
 if st.session_state.get('profile'):
     profile = st.session_state.profile
 
@@ -152,13 +141,30 @@ if st.session_state.get('profile'):
     unique_thema = data["Thema"].unique()
     unique_hauptbereich = data["Hauptbereich"].unique()
 
+
+
+    desired_row = df.iloc[user_index - 2]
+    stored_profile = desired_row.loc['name_carer':'demenzstadium']
+
+    if not st.session_state.get('profile'):
+        # Use stored values from the database if they exist, otherwise use defaults
+        default_name_carer = stored_profile['name_carer'] if stored_profile['name_carer'] else ""
+
+
+
     #initalize selected Hauptbereich
+
     if not st.session_state['selected_hauptbereich']:
-        st.session_state['selected_hauptbereich'] = dict([(i, False) for i in unique_hauptbereich])
+        stored_hauptbereich = desired_row.loc['Alltag aktiv gestalten':'Vorsorge und Finanzierung']
+        stored_hauptbereich_dict = {key: (value == "TRUE") for key, value in stored_hauptbereich.to_dict().items()}
+        st.session_state['selected_hauptbereich'] = stored_hauptbereich_dict if stored_hauptbereich.any() else dict([(i, False) for i in unique_hauptbereich])
 
     # initalize selected Thema
     if not st.session_state['selected_thema']:
-        st.session_state['selected_thema'] = dict([(i, False) for i in unique_thema])
+        stored_thema = desired_row.loc['Angenehme Aktivitäten gestalten':'Vorsorgeauftrag']
+        stored_thema_dict = {key: (value == "TRUE") for key, value in stored_thema.to_dict().items()}
+        st.session_state['selected_thema'] = stored_thema_dict if stored_thema.any() else dict([(i, False) for i in unique_hauptbereich])
+
 
     columns = st.columns(2)
     for idx, item in enumerate(unique_hauptbereich_filtered):
@@ -254,10 +260,15 @@ if st.session_state.get('profile'):
 
                 columns[column_idx].write("---")
 
-st.write("---")
-from streamlit_extras.switch_page_button import switch_page
-if st.button("Profil speichern"):
-    switch_page("Coach")
+    st.write("---")
+
+    user_selection = [list(st.session_state["selected_hauptbereich"].values())+list(st.session_state['selected_thema'].values())[9:]]
+    ws.update(f"M{user_index}:AQ{user_index}", user_selection)
+
+    if st.button("Profil speichern"):
+        switch_page("Ratgeber")
+
+
 
 # ################
 # ####### Interaktiv

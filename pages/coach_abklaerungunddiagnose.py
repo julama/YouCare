@@ -13,7 +13,7 @@ data = load_data(file_path)
 HK = data[data['Thema'].apply(normalize_string) == normalize_string(name)]['Hauptbereich'].iloc[0]
 
 if st.button('Zurück'):
-        switch_page("coach")
+        switch_page("Ratgeber")
 
 
 # Read the .txt file
@@ -46,7 +46,7 @@ if text_content is not None:
 
         with st.expander(f"Tipp {i+1}", expanded=expanded):
             columns = st.columns([0.85, 0.075, 0.075])
-            columns[0].markdown(f'<span style="font-size: 20px;">{content_value[2:]}</span>',
+            columns[0].markdown(f'<span style="font-size: 20px;">{extract_content_after_number(content_value)}</span>',
                                 unsafe_allow_html=True)
 
             save_key = f"{name} {i}"

@@ -3,25 +3,24 @@ import gspread as gs
 import pandas as pd
 from config import to_hide_pages, to_show_pages
 from st_pages import show_pages, hide_pages
+import hashlib
 st.set_page_config(layout="wide")
 
+# Hashing function
+def hash_password(password):
+    return hashlib.sha256(password.encode()).hexdigest()
 
 show_pages(to_show_pages)
 hide_pages(to_hide_pages)
 
-#from yaml.loader import SafeLoader
-#import streamlit_authenticator as stauth
 #todo: add disclaimer-> Es ist eine Testversion, es kann sein...
-st.title('Willkommen bei You+Care, deinem persönlichen Pflege Coach')
-st.write("• Erstelle zuerst ein Konto und wechsle dann zu Profil 👤")
+st.title('Willkommen bei You+Care, deinem persönlichen Pflege Ratgeber')
+st.write("• Erstelle zuerst ein Konto und wechsle dann zum Profil 👤")
 st.write("• Das Profil kannst du jederzeit anpassen und verändern")
 st.write("• Nachdem du dein Profil gespeichert hast, werden dir Themen vorgeschlagen")
 st.write("• Wähle für dich relevante Themen und Unterkategorien aus")
-st.write("• Wechsle dann zu Coach :teacher: um mehr über die Themen zu erfahren")
+st.write("• Wechsle dann zum Ratgeber :teacher: um mehr über die Themen zu erfahren")
 
-
-# title
-st.title('Erstelle ein Konto')
 
 # Google sheet DB login
 creds = st.secrets["gcp_service_account"]
@@ -37,8 +36,6 @@ service_account_info = {
                 "auth_provider_x509_cert_url" : creds["auth_provider_x509_cert_url"],
                 "client_x509_cert_url" : creds["client_x509_cert_url"],
                 }
-#store service account info in session
-st.session_state['User_index'] = service_account_info
 
 # Load google sheet as pandas frame
 gc = gs.service_account_from_dict(service_account_info)
@@ -46,22 +43,64 @@ sh = gc.open_by_url(st.secrets["public_gsheets_url"])
 ws = sh.worksheet('DB_login')
 df = pd.DataFrame(ws.get_all_records())
 
-# Create questionaire for user profile
+st.write("---")
+# title
+st.header('Erstelle ein Konto')
+
+# Create questionaire for user registration
 with st.form("Konto"):
     name = st.text_input("Dein Benutzername")
     email = st.text_input("Deine Email Adresse")
-    passwort = st.text_input("Wähle ein Passwort")
+    password = st.text_input("Wähle ein Passwort", type="password")
     submitted = st.form_submit_button("Antworten speichern")
 
-    # Store profile in DB
     if submitted:
+        # Find the index of the first empty row
+        user_index = len(ws.col_values(1))+1
         if name in df["user"].values:
             st.warning('Bitte wähle einen neuen Username, da dieser bereits vergeben ist.')
+        elif email in df["email"].values:
+            st.warning('Ein Konto für diese Email-Adresse existiert bereits')
         else:
-            user_infos = [[name, email]]
-            ws.append_rows(values=user_infos)
-            st.session_state['User'] = name
-            st.session_state['User_index'] = len(ws.col_values(1))
+            if len(password)<5:
+                st.warning('Bitte wähle ein Passwort mit mindestens 5 Zeichen')
+            # Register the user with streamlit-authenticator
+            hashed_pwd = hash_password(password)
+            user_infos = [[name, email, hashed_pwd]]
+            ws.append_rows(user_infos)
+            st.session_state['user'] = name
+            st.session_state['User_index'] = user_index
             st.info('Willkommen {}. Erstelle jetzt dein persönliches Profil'.format(name))
 
+st.write("---")
+# User Login
+st.header('Ich habe bereits ein Konto')
+with st.form("Login"):
+    st.title("Login")
+    login_name_or_email = st.text_input("Benutzername oder Email")
+    login_password = st.text_input("Passwort", type="password")
+    login_submitted = st.form_submit_button("Login")
 
+    if login_submitted:
+        is_authenticated=False
+        # Check if the user provided a username or an email
+        if "@" in login_name_or_email:  # It's an email
+            stored_hashed_pwd = df.loc[df["email"] == login_name_or_email, "hashed_pwd"].values
+        else:  # It's a username
+            stored_hashed_pwd = df.loc[df["user"] == login_name_or_email, "hashed_pwd"].values
+
+        # Verify the password
+        hased_pwd_login = hash_password(login_password)
+        if stored_hashed_pwd==hased_pwd_login:
+            if "@" in login_name_or_email:  # It's an email
+                st.session_state['User_index'] = df[df["email"] == login_name_or_email].index[0]+2
+                st.success("Successfully logged in!")
+            else:  # It's a username
+                st.session_state['User_index'] = df[df["user"] == login_name_or_email].index[0]+2
+                st.success("Successfully logged in!")
+        else:
+            st.warning("Incorrect Username or Password!")
+st.write("---")
+if st.button("Logout"):
+    st.session_state.clear()
+    st.info("You have been logged out.")

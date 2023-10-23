@@ -12,7 +12,7 @@ emoji_values = list(emoji_dict.values())
 data['emojis'] = emoji_values
 
 if st.button('Zurück'):
-        switch_page("coach")
+        switch_page("Ratgeber")
 
 import streamlit as st
 

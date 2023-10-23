@@ -1,25 +1,23 @@
-Thema,Hauptbereich,Nebenbereiche,Diagnose (!),Demenzstadium (!),Alter (!),Berufstätigkeit (!),Hilfe/Unterstützung (!),Wohnsituation (!),Beziehung / Verwandtschaft (!),Relevanz Generation (!)
-Angenehme Aktivitäten gestalten,Alltag aktiv gestalten,"Beziehung stärken, Krankheitswissen Demenz, Sich verständigen - auch mit Demenz",,leicht,"Betreuende:r (Alter), Patient:in (Alter)",,,weiter Weg,Rolle,"Keinen Unterschied, Nachkommende Generation, Partner:in"
-Wohnanpassungen und Hilfsmittel,Alltag aktiv gestalten,Unterstützung für Angehörige,,schwer,,,,,,
-Umgang mit Aggressionen,Herausfordernde Situationen,"Krankheitswissen Demenz, Selbstsorge, Unterstützung für Angehörige",Ja,schwer,Patient:in (Alter),"ich bin berufstaetig, weitere Angehoerige arbeiten",,"im gleichen Haushalt, unmittelbare Nähe",Rolle,"Nachkommende Generation, Partner:in"
-Schlafstörungen,Herausfordernde Situationen,"Alltag aktiv gestalten, Krankheitswissen Demenz, Selbstsorge, Unterstützung für Angehörige",Ja,schwer,Patient:in (Alter),"ich bin berufstaetig, weitere Angehoerige arbeiten",,"im gleichen Haushalt, unmittelbare Nähe",Rolle,"Nachkommende Generation, Partner:in"
-Weglaufen,Herausfordernde Situationen,"Alltag aktiv gestalten, Krankheitswissen Demenz, Unterstützung für Angehörige",Ja,schwer,Patient:in (Alter),"ich bin berufstaetig, weitere Angehoerige arbeiten",,"im gleichen Haushalt, unmittelbare Nähe",Rolle,"Nachkommende Generation, Partner:in"
-Sexualität,Herausfordernde Situationen,"Krankheitswissen Demenz, Herausfordernde Situationen,, Unterstützung für Angehörige",Ja,schwer,Patient:in (Alter),"ich bin berufstaetig, weitere Angehoerige arbeiten",,"im gleichen Haushalt, unmittelbare Nähe",Rolle,Keinen Unterschied
-Schmerzen,Herausfordernde Situationen,"Nach der Diagnose, Krankheitswissen Demenz, Unterstützung für Angehörige",Ja,schwer,Patient:in (Alter),"ich bin berufstaetig, weitere Angehoerige arbeiten",,"im gleichen Haushalt, unmittelbare Nähe",Rolle,"Nachkommende Generation, Partner:in"
-Abklärung und Diagnose,Krankheitswissen Demenz,"Herausfordernde Situationen, Unterstützung für Angehörige",Nein,,,,professionelle Hilfe,"im gleichen Haushalt, unmittelbare Nähe",Rolle,
-Autofahren,Nach der Diagnose,"Herausfordernde Situationen, Unterstützung für Angehörige",Ja,"mittel, schwer",,,,,,
-Vorsorge und Finanzierung,Nach der Diagnose,"Selbstsorge, Unterstützung für Angehörige",Ja,"leicht, mittel",,ich bin berufstaetig,,weiter Weg,Rolle,"Nachkommende Generation, Partner:in"
-Behandlung,Nach der Diagnose,"Krankheitswissen Demenz, Unterstützung für Angehörige",Ja,"mittel, schwer",,,,,,
-Körperpflege und Toilette,Pflege und Betreuung,"Alltag aktiv gestalten, Beziehung stärken, Unterstützung für Angehörige",Ja,mittel,,ich bin berufstaetig,"privates Umfeld hilft, professionelle Hilfe","im gleichen Haushalt, unmittelbare Nähe",Rolle,Keinen Unterschied
-An- und Auskleiden,Pflege und Betreuung,"Herausfordernde Situationen, Unterstützung für Angehörige",,mittel,,ich bin berufstaetig,"privates Umfeld hilft, professionelle Hilfe","im gleichen Haushalt, unmittelbare Nähe",Rolle,
-Essen und Trinken,Pflege und Betreuung,"Alltag aktiv gestalten, Herausfordernde Situationen, Unterstützung für Angehörige",,mittel,,ich bin berufstaetig,"privates Umfeld hilft, professionelle Hilfe","im gleichen Haushalt, unmittelbare Nähe",Rolle,
-Inkontinenz,Pflege und Betreuung,"Herausfordernde Situationen, Krankheitswissen Demenz, Unterstützung für Angehörige",,"mittel, schwer",,,,,,
-Zähneputzen,Pflege und Betreuung,"Alltag aktiv gestalten, Herausfordernde Situationen",Ja,schwer,,,,,,
-Achtsamkeitsübungen,Selbstfürsorge,Unterstützung für Angehörige,,"mittel, schwer",Betreuende:r (Alter),"ich bin berufstaetig, weitere Angehoerige arbeiten",,unmittelbare Nähe,Rolle,Nachkommende Generation
-Schwierige Gesprächssituationen,Sich verständigen,"Beziehung stärken, Herausfordernde Situationen, Krankheitswissen Demenz",Ja,mittel,"Betreuende:r (Alter), Patient:in (Alter)",,,,Rolle,
-Entlastungsangebote,Unterstützung für Angehörige,"Alltag aktiv gestalten, Pflege und Betreuung, Selbstsorge",Ja,"mittel, schwer",,,privates Umfeld hilft,,,
-Finanzielle Ansprüche,Vorsorge und Finanzierung,"Krankheitswissen Demenz, Unterstützung für Angehörige","Nein, Ja",,,,"privates Umfeld hilft, professionelle Hilfe",,,
-Patientenverfügung,Vorsorge und Finanzierung,"Krankheitswissen Demenz, Unterstützung für Angehörige","Nein, Ja",,,,"privates Umfeld hilft, professionelle Hilfe",,,
-Urteilsfähigkeit,Vorsorge und Finanzierung,"Krankheitswissen Demenz, Herausfordernde Situationen","Nein, Ja",,,,"privates Umfeld hilft, professionelle Hilfe",,,
-Vorsorgeauftrag,Vorsorge und Finanzierung,Krankheitswissen Demenz,"Nein, Ja",,,,"privates Umfeld hilft, professionelle Hilfe",,,
-Testament,Vorsorge und Finanzierung,Krankheitswissen Demenz,"Nein, Ja",,,,"privates Umfeld hilft, professionelle Hilfe",,,
+Thema,Hauptbereich,Nebenbereiche,Diagnose (!),Demenzstadium (!),Berufstätigkeit (!),Wohnsituation (!)
+Angenehme Aktivitäten gestalten,Alltag aktiv gestalten,"Beziehung stärken, Krankheitswissen Demenz, Sich verständigen - auch mit Demenz",,leicht,,weiter Weg
+Wohnanpassungen und Hilfsmittel,Alltag aktiv gestalten,Unterstützung für Angehörige,,schwer,,
+Umgang mit Aggressionen,Herausfordernde Situationen,"Krankheitswissen Demenz, Selbstsorge, Unterstützung für Angehörige",Ja,schwer,"ich bin berufstaetig, weitere Angehoerige arbeiten","im gleichen Haushalt, unmittelbare Nähe"
+Schlafstörungen,Herausfordernde Situationen,"Alltag aktiv gestalten, Krankheitswissen Demenz, Selbstsorge, Unterstützung für Angehörige",Ja,schwer,"ich bin berufstaetig, weitere Angehoerige arbeiten","im gleichen Haushalt, unmittelbare Nähe"
+Weglaufen,Herausfordernde Situationen,"Alltag aktiv gestalten, Krankheitswissen Demenz, Unterstützung für Angehörige",Ja,schwer,"ich bin berufstaetig, weitere Angehoerige arbeiten","im gleichen Haushalt, unmittelbare Nähe"
+Sexualität,Herausfordernde Situationen,"Krankheitswissen Demenz, Herausfordernde Situationen,, Unterstützung für Angehörige",Ja,schwer,"ich bin berufstaetig, weitere Angehoerige arbeiten","im gleichen Haushalt, unmittelbare Nähe"
+Schmerzen,Herausfordernde Situationen,"Nach der Diagnose, Krankheitswissen Demenz, Unterstützung für Angehörige",Ja,schwer,"ich bin berufstaetig, weitere Angehoerige arbeiten","im gleichen Haushalt, unmittelbare Nähe"
+Abklärung und Diagnose,Krankheitswissen Demenz,"Herausfordernde Situationen, Unterstützung für Angehörige",Nein,,,"im gleichen Haushalt, unmittelbare Nähe"
+Autofahren,Nach der Diagnose,"Herausfordernde Situationen, Unterstützung für Angehörige",Ja,"mittel, schwer",,
+Behandlung,Nach der Diagnose,"Krankheitswissen Demenz, Unterstützung für Angehörige",Ja,"mittel, schwer",,
+Körperpflege und Toilette,Pflege und Betreuung,"Alltag aktiv gestalten, Beziehung stärken, Unterstützung für Angehörige",Ja,mittel,ich bin berufstaetig,"im gleichen Haushalt, unmittelbare Nähe"
+An- und Auskleiden,Pflege und Betreuung,"Herausfordernde Situationen, Unterstützung für Angehörige",,mittel,ich bin berufstaetig,"im gleichen Haushalt, unmittelbare Nähe"
+Essen und Trinken,Pflege und Betreuung,"Alltag aktiv gestalten, Herausfordernde Situationen, Unterstützung für Angehörige",,mittel,ich bin berufstaetig,"im gleichen Haushalt, unmittelbare Nähe"
+Inkontinenz,Pflege und Betreuung,"Herausfordernde Situationen, Krankheitswissen Demenz, Unterstützung für Angehörige",,"mittel, schwer",,
+Zähneputzen,Pflege und Betreuung,"Alltag aktiv gestalten, Herausfordernde Situationen",Ja,schwer,,
+Achtsamkeitsübungen,Selbstfürsorge,Unterstützung für Angehörige,,"mittel, schwer","ich bin berufstaetig, weitere Angehoerige arbeiten",unmittelbare Nähe
+Schwierige Gesprächssituationen,Sich verständigen,"Beziehung stärken, Herausfordernde Situationen, Krankheitswissen Demenz",Ja,mittel,,
+Entlastungsangebote,Unterstützung für Angehörige,"Alltag aktiv gestalten, Pflege und Betreuung, Selbstsorge",Ja,"mittel, schwer",,
+Finanzielle Ansprüche,Vorsorge und Finanzierung,"Krankheitswissen Demenz, Unterstützung für Angehörige","Nein, Ja",,,
+Patientenverfügung,Vorsorge und Finanzierung,"Krankheitswissen Demenz, Unterstützung für Angehörige","Nein, Ja",,,
+Urteilsfähigkeit,Vorsorge und Finanzierung,"Krankheitswissen Demenz, Herausfordernde Situationen","Nein, Ja",,,
+Vorsorgeauftrag,Vorsorge und Finanzierung,Krankheitswissen Demenz,"Nein, Ja",,,
