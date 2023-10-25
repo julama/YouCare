@@ -1,4 +1,5 @@
 from utils import *
+import gspread as gs
 from streamlit_extras.switch_page_button import switch_page
 from config import to_hide_pages, emoji_dict
 from st_pages import add_page_title, hide_pages
@@ -21,6 +22,30 @@ else:
 emoji_values = list(emoji_dict.values())
 data['emojis'] = emoji_values
 
+creds = st.secrets["gcp_service_account"]
+service_account_info = {
+                "type" : creds["type"],
+                "project_id" : creds["project_id"],
+                "private_key_id" : creds["private_key_id"],
+                "private_key" : creds["private_key"],
+                "client_email" : creds["client_email"],
+                "client_id" : creds["client_id"],
+                "auth_uri" : creds["auth_uri"],
+                "token_uri" : creds["token_uri"],
+                "auth_provider_x509_cert_url" : creds["auth_provider_x509_cert_url"],
+                "client_x509_cert_url" : creds["client_x509_cert_url"],
+                }
+
+# Load google sheet as pandas frame
+gc = gs.service_account_from_dict(service_account_info)
+sh = gc.open_by_url(st.secrets["public_gsheets_url"])
+ws = sh.worksheet('DB_login')
+df = pd.DataFrame(ws.get_all_records())
+
+user_index=st.session_state['User_index']
+desired_row = df.iloc[user_index-2]
+stored_total_time, stored_click_count = desired_row.loc['total_time_spent':'click_count']
+
 st.write(" ")
 st.write(" ")
 
@@ -41,6 +66,10 @@ cols = st.columns(3)
 for i in range(len(your_feed)):
     j = (i % 3)
     if cols[j].button(f"{emoji_dict[your_feed[i]]} {your_feed[i]}", key=f'feed_{i}'):
+        st.session_state.click_count += 1
+        elapsed_time = time.time() - st.session_state.start_time
+        st.session_state.total_time_spent += elapsed_time
+        st.session_state.start_time = time.time()
         modified_string = umlauts(your_feed[i])
         if modified_string in to_hide_pages:
             switch_page(modified_string)
@@ -68,6 +97,10 @@ for category in categories:
     with cat_title:
         st.write(" ")
     if cat_title.button('ℹ️', key=f'{category}_info'):
+        st.session_state.click_count += 1
+        elapsed_time = time.time() - st.session_state.start_time
+        st.session_state.total_time_spent += elapsed_time
+        st.session_state.start_time = time.time()
         modified_category = umlauts(category)
         if modified_category in to_hide_pages:
             switch_page(modified_category)
@@ -81,6 +114,10 @@ for category in categories:
     for i in range(len(thema_in_category)):
         j = (i % 3)
         if cols[j].button(f'{icon_in_category[i]} {thema_in_category[i]}',key=f'{thema_in_category[i]}_{i}'):
+            st.session_state.click_count += 1
+            elapsed_time = time.time() - st.session_state.start_time
+            st.session_state.total_time_spent += elapsed_time
+            st.session_state.start_time = time.time()
             modified_thema = umlauts(thema_in_category[i])
             if modified_thema in to_hide_pages:
                 switch_page(modified_thema)
@@ -90,3 +127,9 @@ for category in categories:
 
 
 
+#store interaction stats
+stt = int(stored_total_time) if stored_total_time else 0
+scc = int(stored_click_count) if stored_click_count else 0
+st.write(int(st.session_state.total_time_spent))
+user_infos = [[int(st.session_state.total_time_spent)+stt, st.session_state.click_count+scc]]
+ws.update(f"AR{user_index}:AS{user_index}", user_infos)

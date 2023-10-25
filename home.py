@@ -96,15 +96,15 @@ with st.form("Login"):
         if stored_hashed_pwd==hased_pwd_login:
             if "@" in login_name_or_email:  # It's an email
                 st.session_state['User_index'] = df[df["email"] == login_name_or_email].index[0]+2
-                st.success("Successfully logged in!")
+                st.success("Erfolgreich eingeloggt!")
                 switch_page("Profil")
             else:  # It's a username
                 st.session_state['User_index'] = df[df["user"] == login_name_or_email].index[0]+2
-                st.success("Successfully logged in!")
+                st.success("Erfolgreich eingeloggt!")
                 switch_page("Profil")
         else:
-            st.warning("Incorrect Username or Password!")
+            st.warning("Falsches Passwort oder Username!")
 st.write("---")
 if st.button("Logout"):
     st.session_state.clear()
-    st.info("You have been logged out.")
+    st.info("Du bist ausgeloggt!")

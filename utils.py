@@ -1,13 +1,10 @@
 import requests
-import streamlit
-
 from coach_tools import *
 import pandas as pd
 import numpy as np
-#import nltk
+import time
 import re
 import unicodedata
-#nltk.download('punkt')
 
 def init_chat_session():
     st.session_state['generated'] = []
@@ -17,6 +14,9 @@ def init_profile():
     st.session_state['profile'] = None
     st.session_state['selected_hauptbereich'] = None
     st.session_state['selected_thema'] = None
+    st.session_state.click_count = 0
+    st.session_state.start_time = time.time()
+    st.session_state.total_time_spent = 0
     if 'User_index' not in st.session_state:
         st.session_state['User_index'] = None
 
@@ -24,6 +24,11 @@ def load_data(path):
     return pd.read_csv(path, encoding="utf-8")
 
 def on_save_button_click(HK, theme, item):
+    st.session_state.click_count += 1
+    elapsed_time = time.time() - st.session_state.start_time
+    st.session_state.total_time_spent += elapsed_time
+    st.session_state.start_time = time.time()
+
     bookmarks = st.session_state.setdefault('bookmarks', {})
     hk_dict = bookmarks.setdefault(HK, {})
     theme_list = hk_dict.setdefault(theme, [])
@@ -40,6 +45,11 @@ def keeper(key):
     st.session_state['selected_hauptbereich'][key] = st.session_state['_' + key]
 
 def on_remove_button_click(HK, theme, item):
+    st.session_state.click_count += 1
+    elapsed_time = time.time() - st.session_state.start_time
+    st.session_state.total_time_spent += elapsed_time
+    st.session_state.start_time = time.time()
+
     bookmarks = st.session_state.get('bookmarks', {})
 
     if HK in bookmarks and theme in bookmarks[HK]:

@@ -266,6 +266,10 @@ if st.session_state.get('profile'):
     ws.update(f"M{user_index}:AQ{user_index}", user_selection)
 
     if st.button("Profil speichern"):
+        st.session_state.click_count += 1
+        elapsed_time = time.time() - st.session_state.start_time
+        st.session_state.total_time_spent += elapsed_time
+        st.session_state.start_time = time.time()
         switch_page("Ratgeber")
 
 
