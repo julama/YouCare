@@ -32,7 +32,9 @@ to_show_pages =[
         Page("pages/coach_herausforderndesituationen.py", "Herausfordernde Situationen"),
         Page("pages/coach_krankheitswissendemenz.py", "Krankheitswissen Demenz"),
         Page("pages/coach_pflegeundbetreuung.py", "Pflege und Betreuung"),
-        Page("pages/coach_alltagaktivgestalten.py", "Alltag aktiv gestalten")
+        Page("pages/coach_alltagaktivgestalten.py", "Alltag aktiv gestalten"),
+        Page("pages/coach_achtsamkeitsuebungen.py", "Achtsamkeitsuebungen"),
+        Page("pages/coach_selbstfuersorge.py", "Selbstfuersorge")
     ]
 
 to_hide_pages = [
@@ -68,6 +70,8 @@ to_hide_pages = [
     "Urteilsfaehigkeit",
     "Patientenverfuegung",
     "Unterstuetzung fuer Angehoerige",
+    "Achtsamkeitsuebungen",
+    "Selbstfuersorge"
 ]
 
 emoji_dict = {

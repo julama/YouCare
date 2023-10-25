@@ -33,7 +33,7 @@ filtered_data, combined_data = filter_data_profile(data, profile)
 sel_thema, scores_other_topics, scores = scoring_function(data, selected_thema, selected_hauptbereich, profile)
 random_thema = random_feed(scores_other_topics)
 sel_thema_values = get_selected_thema(selected_thema)
-data_sorted, your_feed = sort_score(random_thema, data, sel_thema_values, 6)
+data_sorted, your_feed, data_sorted_wo_selectd_hk, selected_hk = sort_score(random_thema, data, sel_thema_values, selected_hauptbereich, 6)
 
 # your_feed
 st.header('Deine Themen')
@@ -52,7 +52,13 @@ st.write("---")
 e1, section_title, e12 = st.columns([10,8,10])
 st.header('Alle Themen im Überblick')
 
-categories = data_sorted['Hauptbereich'].unique()
+#selected categories always on top of "Themen im Überblick"
+categories = data_sorted_wo_selectd_hk['Hauptbereich'].unique()
+categories = selected_hk+list(categories)
+
+#selected_hk
+#st.write(selected_hauptbereich.keys()[selected_hauptbereich.values[]])
+#categories = categories + selected_hauptbereich.keys()[selected_hauptbereich.values[]==true]
 st.write(" ")
 for category in categories:
     cat_title, cat_info = st.columns([1,8])

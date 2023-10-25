@@ -94,7 +94,7 @@ with col2:
 
     diagnose_choices = ["Ja", "Nein"]
     diagnose_index = diagnose_choices.index(default_diagnose)
-    diagnose = st.selectbox("Es besteht eine Alzheimer Diagnose", diagnose_choices, index=diagnose_index)
+    diagnose = st.selectbox("Ist eine Alzheimererkrankung oder eine andere Demenzform diagnostiziert?", diagnose_choices, index=diagnose_index)
 
     demenzstadium_choices = ["leicht", "mittel", "schwer"]
     demenzstadium_index = demenzstadium_choices.index(

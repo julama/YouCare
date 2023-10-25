@@ -4,6 +4,7 @@ import pandas as pd
 from config import to_hide_pages, to_show_pages
 from st_pages import show_pages, hide_pages
 import hashlib
+from streamlit_extras.switch_page_button import switch_page
 st.set_page_config(layout="wide")
 
 # Hashing function
@@ -52,7 +53,7 @@ with st.form("Konto"):
     name = st.text_input("Dein Benutzername")
     email = st.text_input("Deine Email Adresse")
     password = st.text_input("Wähle ein Passwort", type="password")
-    submitted = st.form_submit_button("Antworten speichern")
+    submitted = st.form_submit_button("Registrieren")
 
     if submitted:
         # Find the index of the first empty row
@@ -71,6 +72,7 @@ with st.form("Konto"):
             st.session_state['user'] = name
             st.session_state['User_index'] = user_index
             st.info('Willkommen {}. Erstelle jetzt dein persönliches Profil'.format(name))
+            switch_page("Profil")
 
 st.write("---")
 # User Login
@@ -95,9 +97,11 @@ with st.form("Login"):
             if "@" in login_name_or_email:  # It's an email
                 st.session_state['User_index'] = df[df["email"] == login_name_or_email].index[0]+2
                 st.success("Successfully logged in!")
+                switch_page("Profil")
             else:  # It's a username
                 st.session_state['User_index'] = df[df["user"] == login_name_or_email].index[0]+2
                 st.success("Successfully logged in!")
+                switch_page("Profil")
         else:
             st.warning("Incorrect Username or Password!")
 st.write("---")

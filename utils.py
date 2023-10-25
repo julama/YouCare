@@ -256,7 +256,7 @@ def random_feed(df, k=22):
     return sampled_series
 
 
-def sort_score(random_thema, data, selected_thema, k):
+def sort_score(random_thema, data, selected_thema, selected_hauptbereich, k):
     """
     Sorts the provided data based on scores and selected themes.
 
@@ -269,6 +269,7 @@ def sort_score(random_thema, data, selected_thema, k):
     Returns:
     - hauptbereich_sorted (pd.DataFrame): Data sorted based on Hauptbereich scores.
     - your_feed (list): Final feed containing selected themes and top-scored items.
+    - score_sort_hk
 
     Description:
     The function sorts the data based on scores. It then constructs a final feed by combining the selected themes and top-scored items.
@@ -296,13 +297,16 @@ def sort_score(random_thema, data, selected_thema, k):
 
     # Step 1: Remove selected_thema rows from data
     score_sort = score_sort[~score_sort['Thema'].isin(selected_thema)]
+    #Remove selected_hauptbereich rows from data
+    selected_hk = [key for key, value in selected_hauptbereich.items() if value is True]
+    score_sort_hk = hauptbereich_sorted[~hauptbereich_sorted['Hauptbereich'].isin(selected_hk)]
 
     # Step 2: Select top n score thema from data and add them to your_feed
     n = k - len(selected_thema)
     top_score_thema = score_sort['Thema'].head(n).tolist()
     your_feed += top_score_thema  # Extend the list with top_score_thema elements
 
-    return hauptbereich_sorted, your_feed
+    return hauptbereich_sorted, your_feed, score_sort_hk, selected_hk
 
 
 def umlauts(umlautstring):
