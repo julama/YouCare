@@ -1,10 +1,11 @@
 import gspread as gs
 from utils import *
 from config import to_hide_pages
-from st_pages import add_page_title, hide_pages
+from st_pages import add_page_title, hide_pages, show_pages_from_config
 import json
 
 # Add page title and hide pages
+show_pages_from_config()
 hide_pages(to_hide_pages)
 add_page_title()
 
