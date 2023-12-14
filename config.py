@@ -38,7 +38,7 @@ to_show_pages =[
     ]
 
 to_hide_pages = [
-    "weglaufen",
+    "Weglaufen",
     "Entlastungsangebote",
     "Vorsorgeauftrag",
     "Angenehme Aktivitaeten gestalten",
