@@ -1,9 +1,10 @@
 import gspread as gs
 from utils import *
-from st_pages import add_page_title, hide_pages
-from config import to_hide_pages
+from st_pages import add_page_title, hide_pages, show_pages
+from config import to_hide_pages, to_show_pages
 from streamlit_extras.switch_page_button import switch_page
 hide_pages(to_hide_pages)
+show_pages(to_show_pages)
 add_page_title()
 
 # title
