@@ -1,23 +1,23 @@
-Thema,Hauptbereich,Nebenbereiche,Diagnose (!),Demenzstadium (!),Berufstätigkeit (!),Wohnsituation (!)
-Angenehme Aktivitäten gestalten,Alltag aktiv gestalten,"Beziehung stärken, Krankheitswissen Demenz, Sich verständigen - auch mit Demenz",,leicht,,weiter Weg
-Wohnanpassungen und Hilfsmittel,Alltag aktiv gestalten,Unterstützung für Angehörige,,schwer,,
-Umgang mit Aggressionen,Herausfordernde Situationen,"Krankheitswissen Demenz, Selbstsorge, Unterstützung für Angehörige",Ja,schwer,"ich bin berufstaetig, weitere Angehoerige arbeiten","im gleichen Haushalt, unmittelbare Nähe"
-Schlafstörungen,Herausfordernde Situationen,"Alltag aktiv gestalten, Krankheitswissen Demenz, Selbstsorge, Unterstützung für Angehörige",Ja,schwer,"ich bin berufstaetig, weitere Angehoerige arbeiten","im gleichen Haushalt, unmittelbare Nähe"
-Weglaufen,Herausfordernde Situationen,"Alltag aktiv gestalten, Krankheitswissen Demenz, Unterstützung für Angehörige",Ja,schwer,"ich bin berufstaetig, weitere Angehoerige arbeiten","im gleichen Haushalt, unmittelbare Nähe"
-Sexualität,Herausfordernde Situationen,"Krankheitswissen Demenz, Herausfordernde Situationen,, Unterstützung für Angehörige",Ja,schwer,"ich bin berufstaetig, weitere Angehoerige arbeiten","im gleichen Haushalt, unmittelbare Nähe"
-Schmerzen,Herausfordernde Situationen,"Nach der Diagnose, Krankheitswissen Demenz, Unterstützung für Angehörige",Ja,schwer,"ich bin berufstaetig, weitere Angehoerige arbeiten","im gleichen Haushalt, unmittelbare Nähe"
-Abklärung und Diagnose,Krankheitswissen Demenz,"Herausfordernde Situationen, Unterstützung für Angehörige",Nein,,,"im gleichen Haushalt, unmittelbare Nähe"
-Autofahren,Nach der Diagnose,"Herausfordernde Situationen, Unterstützung für Angehörige",Ja,"mittel, schwer",,
-Behandlung,Nach der Diagnose,"Krankheitswissen Demenz, Unterstützung für Angehörige",Ja,"mittel, schwer",,
-Körperpflege und Toilette,Pflege und Betreuung,"Alltag aktiv gestalten, Beziehung stärken, Unterstützung für Angehörige",Ja,mittel,ich bin berufstaetig,"im gleichen Haushalt, unmittelbare Nähe"
-An- und Auskleiden,Pflege und Betreuung,"Herausfordernde Situationen, Unterstützung für Angehörige",,mittel,ich bin berufstaetig,"im gleichen Haushalt, unmittelbare Nähe"
-Essen und Trinken,Pflege und Betreuung,"Alltag aktiv gestalten, Herausfordernde Situationen, Unterstützung für Angehörige",,mittel,ich bin berufstaetig,"im gleichen Haushalt, unmittelbare Nähe"
-Inkontinenz,Pflege und Betreuung,"Herausfordernde Situationen, Krankheitswissen Demenz, Unterstützung für Angehörige",,"mittel, schwer",,
-Zähneputzen,Pflege und Betreuung,"Alltag aktiv gestalten, Herausfordernde Situationen",Ja,schwer,,
-Achtsamkeitsübungen,Selbstfürsorge,Unterstützung für Angehörige,,"mittel, schwer","ich bin berufstaetig, weitere Angehoerige arbeiten",unmittelbare Nähe
-Schwierige Gesprächssituationen,Sich verständigen,"Beziehung stärken, Herausfordernde Situationen, Krankheitswissen Demenz",Ja,mittel,,
-Entlastungsangebote,Unterstützung für Angehörige,"Alltag aktiv gestalten, Pflege und Betreuung, Selbstsorge",Ja,"mittel, schwer",,
-Finanzielle Ansprüche,Vorsorge und Finanzierung,"Krankheitswissen Demenz, Unterstützung für Angehörige","Nein, Ja",,,
-Patientenverfügung,Vorsorge und Finanzierung,"Krankheitswissen Demenz, Unterstützung für Angehörige","Nein, Ja",,,
-Urteilsfähigkeit,Vorsorge und Finanzierung,"Krankheitswissen Demenz, Herausfordernde Situationen","Nein, Ja",,,
-Vorsorgeauftrag,Vorsorge und Finanzierung,Krankheitswissen Demenz,"Nein, Ja",,,
+Thema,Hauptbereich,Verknüpfte Themen,Berufstätigkeit,Diagnose,Demenzstadium,Hilfen,Wohnsituation,Beziehung
+Umgang mit Aggressionen,Herausfordernde Situationen,"Selbstfürsorge, Unterstützung für Angehörige",,,"mittel, schwer",,"im gleichen Haushalt, prio, unmittelbare Nähe",Partner:in
+Schlafstörungen test,Herausfordernde Situationen,"Selbstfürsorge, Unterstützung für Angehörige",,,"mittel, schwer",,"im gleichen Haushalt, prio, unmittelbare Nähe",Partner:in
+Weglaufen,Herausfordernde Situationen,"Selbstfürsorge, Unterstützung für Angehörige",,,"mittel, schwer",,"im gleichen Haushalt, prio, unmittelbare Nähe",Partner:in
+Schmerzen,Herausfordernde Situationen,"Selbstfürsorge, Unterstützung für Angehörige",,,"mittel, schwer",,"im gleichen Haushalt, prio, unmittelbare Nähe",Partner:in
+Sexualität,Herausfordernde Situationen,"Selbstfürsorge, Unterstützung für Angehörige",,,"mittel, schwer",,"im gleichen Haushalt, prio, unmittelbare Nähe",Partner:in
+Körperpflege & Toilette,Pflege,"Schmerzen, Unterstützung für Angehörige",,,"mittel, schwer",privates Umfeld hilft,,
+An- und Auskleiden,Pflege,"Schmerzen, Unterstützung für Angehörige",,,"mittel, schwer",privates Umfeld hilft,,
+Essen und Trinken,Pflege,"Schmerzen, Unterstützung für Angehörige",,,"mittel, schwer",privates Umfeld hilft,,
+Zähneputzen,Pflege,"Schmerzen, Unterstützung für Angehörige",,,"mittel, schwer",privates Umfeld hilft,,
+Inkontinenz,Pflege,"Schmerzen, Unterstützung für Angehörige",,,"mittel, schwer",privates Umfeld hilft,,
+Angenehme Aktivitäten gestalten,Alltag aktiv gestalten,"Sich verständigen – auch mit Demenz, Unterstützung für Angehörige",ja,,leicht,"prio, privates Umfeld hilft","prio, weiter Weg","Nachkommende Generation, Partner:in, prio"
+Wohnanpassung & Hilfsmittel,Alltag aktiv gestalten,"Sich verständigen – auch mit Demenz, Unterstützung für Angehörige",ja,,leicht,"prio, privates Umfeld hilft","prio, weiter Weg","Nachkommende Generation, Partner:in, prio"
+Schwierige Gesprächssituationen,Sich verständigen,"Alltag aktiv gestalten, Pflege",,,,,,
+Achtsamkeitsübungen,Selbstfürsorge,"Alltag aktiv gestalten, Unterstützung für Angehörige",,,"mittel, schwer",nein,"im gleichen Haushalt, prio",
+Abklärung und Diagnose,Krankheitswissen Demenz,Nach der Diagnose,,"Nein, prio",kann ich nicht einschätzen,,,
+Autofahren,Nach der Diagnose,"Unterstützung für Angehörige, Vorsorge und Finanzierung",,Nein,kann ich nicht einschätzen,,,
+Behandlung,Nach der Diagnose,"Unterstützung für Angehörige, Vorsorge und Finanzierung",,Nein,kann ich nicht einschätzen,,,
+Finanzielle Ansprüche,Vorsorge und Finanzierung,,,"Ja, Nein, prio",,,,
+Patientenverfügung,Vorsorge und Finanzierung,,,"Ja, Nein, prio",,,,
+Urteilsfähigkeit,Vorsorge und Finanzierung,,,"Ja, Nein, prio",,,,
+Vorsorgeauftrag,Vorsorge und Finanzierung,,,"Ja, Nein, prio",,,,
+Entlastungsangebote,Unterstützung für Angehörige,Selbstfürsorge,"ja, prio",,"mittel, prio, schwer","nein, prio, privates Umfeld hilft",weiter Weg,"Nachkommende Generation, prio"
