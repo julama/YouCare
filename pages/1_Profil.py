@@ -44,28 +44,28 @@ df = pd.DataFrame(ws.get_all_records())
 
 desired_row = df.iloc[user_index-2]
 stored_profile = desired_row.loc['name_carer':'demenzstadium']
-
 if not st.session_state.get('profile'):
     # Use stored values from the database if they exist, otherwise use defaults
     default_name_carer = stored_profile['name_carer'] if stored_profile['name_carer'] else ""
-    default_alter_carer = stored_profile['alter_carer'] if stored_profile['alter_carer'] else 60
-    default_betreuung = stored_profile['betreuung'] if stored_profile['betreuung'] else "ich bin berufstaetig"
+    #default_alter_carer = stored_profile['alter_carer'] if stored_profile['alter_carer'] else 60
+    default_berufstaetigkeit= stored_profile['berufstaetigkeit'] if stored_profile['berufstaetigkeit'] else "Ja"
     default_name_patient = stored_profile['name_patient'] if stored_profile['name_patient'] else ""
-    default_alter_patient = stored_profile['alter_patient'] if stored_profile['alter_patient'] else 60
+    #default_alter_patient = stored_profile['alter_patient'] if stored_profile['alter_patient'] else 60
     default_beziehung = stored_profile['beziehung'] if stored_profile['beziehung'] else "PartnerIn"
     default_wohnsituation = stored_profile['wohnsituation'] if stored_profile['wohnsituation'] else "im gleichen Haushalt"
     default_diagnose = stored_profile['diagnose'] if stored_profile['diagnose'] else "Nein"
     default_demenzstadium = stored_profile['demenzstadium'] if stored_profile['demenzstadium'] else ""
+    default_hilfen = stored_profile['hilfen'] if stored_profile['hilfen'] else "privates Umfeld hilft"
 else:
     default_name_carer = st.session_state.profile.get("name_carer")
-    default_alter_carer = st.session_state.profile.get("alter_carer")
-    default_betreuung = st.session_state.profile.get("Berufstätigkeit (!)")
+    #default_alter_carer = st.session_state.profile.get("alter_carer")
+    default_berufstaetigkeit = st.session_state.profile.get("Berufstätigkeit")
     default_name_patient = st.session_state.profile.get("name_patient")
-    default_alter_patient = st.session_state.profile.get("alter_patient")
-    default_beziehung = st.session_state.profile.get("beziehung")
-    default_wohnsituation = st.session_state.profile.get("Wohnsituation (!)")
-    default_demenzstadium = st.session_state.profile.get("Demenzstadium (!)")
-    default_diagnose = st.session_state.profile.get("Diagnose (!)")
+    default_beziehung = st.session_state.profile.get("Beziehung")
+    default_wohnsituation = st.session_state.profile.get("Wohnsituation")
+    default_demenzstadium = st.session_state.profile.get("Demenzstadium")
+    default_diagnose = st.session_state.profile.get("Diagnose")
+    default_hilfen = st.session_state.profile.get("Hilfen")
 
 # Define basic layout / columns
 col1, col2 = st.columns(2)
@@ -73,22 +73,27 @@ col1, col2 = st.columns(2)
 with col1:
     st.subheader("Über dich")
     name_carer = st.text_input("Dein Name", value=default_name_carer)
-    alter_carer = st.number_input("Dein Alter", min_value=1, max_value=130, step=1, format="%d",
-                                  value=default_alter_carer)
+    # alter_carer = st.number_input("Dein Alter", min_value=1, max_value=130, step=1, format="%d",
+    #                               value=default_alter_carer)
     wohnsituationen = ["im gleichen Haushalt", "unmittelbare Nähe", "weiter weg"]
     ws_index = wohnsituationen.index(default_wohnsituation)
     wohnsituation = st.selectbox("Wohnsituation", wohnsituationen, index=ws_index)
 
-    betreuung = ["ich bin berufstaetig", "weitere Angehoerige arbeiten", "anderes"]
-    betreuung_index = betreuung.index(default_betreuung)
-    berufstaetigkeit = st.selectbox("Berufstaetigkeit", betreuung, index=betreuung_index)
+    berufstaetigkeiten = ["Ja", "Nein"]
+    berufstaetigkeit_index = berufstaetigkeiten.index(default_berufstaetigkeit)
+    berufstaetigkeit = st.selectbox("Ich bin berufstätig", berufstaetigkeiten, index=berufstaetigkeit_index)
+
+    hilfen = ["privates Umfeld hilft", "professionelle Hilfe", "Nein"]
+    hilfen_index = hilfen.index(default_hilfen)
+    hilfe = st.selectbox("Ich habe Unterstützung/Hilfe bei der Betreuung", hilfen, index=hilfen_index)
 
 with col2:
     st.subheader("Über die betroffene Person")
     name_patient = st.text_input("Name", value=default_name_patient)
-    alter_patient = st.number_input("Alter", min_value=1, max_value=130, step=1, format="%d",
-                                    value=default_alter_patient)
-    beziehung_choices = ["Mutter/Vater", "Schwester/Bruder", "PartnerIn", "Anderes"]
+    # alter_patient = st.number_input("Alter", min_value=1, max_value=130, step=1, format="%d",
+    #                                 value=default_alter_patient)
+    default_beziehung
+    beziehung_choices = ["Mutter/Vater", "PartnerIn", "Anderes"]
     beziehung_index = beziehung_choices.index(default_beziehung)
     beziehung = st.selectbox("Die zu betreuende Person ist mein/e", beziehung_choices, index=beziehung_index)
 
@@ -96,32 +101,33 @@ with col2:
     diagnose_index = diagnose_choices.index(default_diagnose)
     diagnose = st.selectbox("Ist eine Alzheimererkrankung oder eine andere Demenzform diagnostiziert?", diagnose_choices, index=diagnose_index)
 
-    demenzstadium_choices = ["leicht", "mittel", "schwer"]
+    demenzstadium_choices = ["leicht", "mittel", "schwer", "kann ich nicht einschätzen"]
     demenzstadium_index = demenzstadium_choices.index(
         default_demenzstadium) if default_demenzstadium in demenzstadium_choices else 0
     demenzstadium = st.selectbox("Demenzstadium", demenzstadium_choices, index=demenzstadium_index)
 
 
 # Store profile in DB
-user_infos = [[name_carer, alter_carer, name_patient, alter_patient, wohnsituation, beziehung, berufstaetigkeit, diagnose, demenzstadium]]
+user_infos = [[name_carer, name_patient, wohnsituation, beziehung, berufstaetigkeit, diagnose, hilfe, demenzstadium]]
 ws.update(f"D{user_index}:L{user_index}", user_infos)
 st.session_state.profile = {
     "name_carer": name_carer,
-    "alter_carer": alter_carer,
-    "Berufstätigkeit (!)": berufstaetigkeit,
     "name_patient": name_patient,
-    "alter_patient": alter_patient,
-    "beziehung": beziehung,
-    "Wohnsituation (!)": wohnsituation,
-    "Demenzstadium (!)": demenzstadium,
-    "Diagnose (!)": diagnose
+    "Wohnsituation": wohnsituation,
+    "Beziehung": beziehung,
+    "Berufstätigkeit": berufstaetigkeit,
+    "Diagnose": diagnose,
+    "Hilfen": hilfe,
+    "Demenzstadium": demenzstadium
+
+
 }
 
 ############
 ## Themen
 ############
 
-file_path = "assets/Kategorien_Sortierkriterien.csv"
+file_path = "assets/Kategorien_Sortierkriterien_neu.csv"
 data = load_data(file_path)
 
 #################

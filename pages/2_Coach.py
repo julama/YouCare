@@ -6,7 +6,7 @@ from st_pages import add_page_title, hide_pages
 hide_pages(to_hide_pages)
 add_page_title()
 
-file_path = "assets/Kategorien_Sortierkriterien.csv"
+file_path = "assets/Kategorien_Sortierkriterien_neu.csv"
 data = load_data(file_path)
 
 #intialize session state:
@@ -55,41 +55,87 @@ store_user_selection = selected_hauptbereich, selected_thema
 
 # Score Sortierkriterien based on profile and selection
 filtered_data, combined_data = filter_data_profile(data, profile)
+
 sel_thema, scores_other_topics, scores = scoring_function(data, selected_thema, selected_hauptbereich, profile)
 random_thema = random_feed(scores_other_topics)
 sel_thema_values = get_selected_thema(selected_thema)
 data_sorted, your_feed, data_sorted_wo_selectd_hk, selected_hk = sort_score(random_thema, data, sel_thema_values, selected_hauptbereich, 6)
 
-# your_feed
-st.header('Deine Themen')
-cols = st.columns(3)
-for i in range(len(your_feed)):
-    j = (i % 3)
-    if cols[j].button(f"{emoji_dict[your_feed[i]]} {your_feed[i]}", key=f'feed_{i}'):
-        st.session_state.click_count += 1
-        elapsed_time = time.time() - st.session_state.start_time
-        st.session_state.total_time_spent += elapsed_time
-        st.session_state.start_time = time.time()
-        modified_string = umlauts(your_feed[i])
-        if modified_string in to_hide_pages:
-            switch_page(modified_string)
-        else:
-            st.info("Leider haben wir noch keinen Coach für dieses Thema")
+## Deine Themen
+## Passende Unterthemen vorzuschlagen: deprecated;
+# st.header('Deine Themen')
+# cols = st.columns(3)
+# for i in range(len(your_feed)):
+#     j = (i % 3)
+#     if cols[j].button(f"{emoji_dict[your_feed[i]]} {your_feed[i]}", key=f'feed_{i}'):
+#         st.session_state.click_count += 1
+#         elapsed_time = time.time() - st.session_state.start_time
+#         st.session_state.total_time_spent += elapsed_time
+#         st.session_state.start_time = time.time()
+#         modified_string = umlauts(your_feed[i])
+#         if modified_string in to_hide_pages:
+#             switch_page(modified_string)
+#         else:
+#             st.info("Leider haben wir noch keinen Coach für dieses Thema")
 
 ## Empfehlungen Section
 st.write("---")
 e1, section_title, e12 = st.columns([10,8,10])
-st.header('Alle Themen im Überblick')
+st.header('Deine Themen')
+# Anzahl Thmen in "Deine themen"
+n_themen = 2
 
 #selected categories always on top of "Themen im Überblick"
 categories = data_sorted_wo_selectd_hk['Hauptbereich'].unique()
 categories = selected_hk+list(categories)
+my_feed = categories[0:n_themen]
 
-#selected_hk
-#st.write(selected_hauptbereich.keys()[selected_hauptbereich.values[]])
-#categories = categories + selected_hauptbereich.keys()[selected_hauptbereich.values[]==true]
+for category in my_feed:
+    cat_title, cat_info = st.columns([1,8])
+    with cat_info:
+        st.write(" ")
+        st.subheader(category)
+    with cat_title:
+        st.write(" ")
+    if cat_title.button('ℹ️', key=f'{category}_info'):
+        st.session_state.click_count += 1
+        elapsed_time = time.time() - st.session_state.start_time
+        st.session_state.total_time_spent += elapsed_time
+        st.session_state.start_time = time.time()
+        modified_category = umlauts(category)
+        if modified_category in to_hide_pages:
+            switch_page(modified_category)
+        else:
+            st.info("Leider haben wir noch keinen Coach für dieses Thema")
+
+    thema_in_category = data[data['Hauptbereich'] == category]['Thema'].tolist()
+    icon_in_category = data[data['Hauptbereich'] == category]['emojis'].tolist()
+    cols = st.columns(3)
+
+    for i in range(len(thema_in_category)):
+        j = (i % 3)
+        if cols[j].button(f'{icon_in_category[i]} {thema_in_category[i]}',key=f'{thema_in_category[i]}_{i}'):
+            st.session_state.click_count += 1
+            elapsed_time = time.time() - st.session_state.start_time
+            st.session_state.total_time_spent += elapsed_time
+            st.session_state.start_time = time.time()
+            modified_thema = umlauts(thema_in_category[i])
+            if modified_thema in to_hide_pages:
+                switch_page(modified_thema)
+            else:
+                st.info("Leider haben wir noch keinen Coach für dieses Thema")
+        st.write(" ")
+
+## Empfehlungen Section
+st.write("---")
+e1, section_title, e12 = st.columns([10,8,10])
+st.header('Weitere Themen für Dich')
+
+#selected categories always on top of "Themen im Überblick"
+weitere_themen = categories[n_themen:]
+
 st.write(" ")
-for category in categories:
+for category in weitere_themen:
     cat_title, cat_info = st.columns([1,8])
     with cat_info:
         st.write(" ")
@@ -130,6 +176,5 @@ for category in categories:
 #store interaction stats
 stt = int(stored_total_time) if stored_total_time else 0
 scc = int(stored_click_count) if stored_click_count else 0
-st.write(int(st.session_state.total_time_spent))
 user_infos = [[int(st.session_state.total_time_spent)+stt, st.session_state.click_count+scc]]
 ws.update(f"AR{user_index}:AS{user_index}", user_infos)

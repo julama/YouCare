@@ -147,29 +147,45 @@ def filter_data_profile(data, profile):
     Description:
     The function filters the data based on the user's profile. It creates masks for specific profile items and applies these masks to the data. The resultant data is a combination of rows that match the profile and rows that do not.
     """
-    #todo: take argument what profile items to filter
-
-    #String mapping
-    wohnsituation = profile["Wohnsituation (!)"]
-    diagnose = profile["Diagnose (!)"]
-    Demenzstadium = profile["Demenzstadium (!)"]
+    # String mapping
+    Wohnsituation = profile["Wohnsituation"]
+    Diagnose = profile["Diagnose"]
+    Demenzstadium = profile["Demenzstadium"]
+    Hilfen = profile["Hilfen"]
+    Berufstätigkeit = profile["Berufstätigkeit"]
+    Beziehung = profile["Beziehung"]
 
     # Create a mask for each column to check if the value matches the user profile or if the cell is empty
-    #todo: For profile_item in profile do:
-    mask_wohnsituation = data["Wohnsituation (!)"]\
-        .apply(lambda x: wohnsituation in x.split(", ") if isinstance(x, str) else True)
-    mask_diagnose = data["Diagnose (!)"]\
-        .apply(lambda x: diagnose in x.split(", ") if isinstance(x, str) else True)
-    mask_demenzstadium = data["Demenzstadium (!)"]\
+    mask_wohnsituation = data["Wohnsituation"]\
+        .apply(lambda x: Wohnsituation in x.split(", ") if isinstance(x, str) else True)
+    mask_diagnose = data["Diagnose"]\
+        .apply(lambda x: Diagnose in x.split(", ") if isinstance(x, str) else True)
+    mask_demenzstadium = data["Demenzstadium"]\
         .apply(lambda x: Demenzstadium in x.split(", ") if isinstance(x, str) else True)
+    mask_hilfen = data["Hilfen"] \
+        .apply(lambda x: Hilfen in x.split(", ") if isinstance(x, str) else True)
+    mask_berufstaetigkeit = data["Berufstätigkeit"] \
+        .apply(lambda x: Berufstätigkeit in x.split(", ") if isinstance(x, str) else True)
+    mask_beziehung = data["Beziehung"] \
+        .apply(lambda x: Beziehung in x.split(", ") if isinstance(x, str) else True)
 
     # Filter the data using the masks
-    filtered_data = data[mask_wohnsituation & mask_diagnose & mask_demenzstadium]
+    filtered_data = data[mask_wohnsituation &
+                         mask_diagnose &
+                         mask_demenzstadium &
+                         mask_hilfen &
+                         mask_berufstaetigkeit &
+                         mask_beziehung]
     # Apply the inverse mask to the original data
-    inverse_mask_data = data[~(mask_wohnsituation & mask_diagnose & mask_demenzstadium)]
+    inverse_mask_data = data[~(mask_wohnsituation &
+                         mask_diagnose &
+                         mask_demenzstadium &
+                         mask_hilfen &
+                         mask_berufstaetigkeit &
+                         mask_beziehung)]
+
     # Concatenate filtered_data and inverse_mask_data
     combined_data = pd.concat([filtered_data, inverse_mask_data], ignore_index=True)
-
     return filtered_data, combined_data
 
 
@@ -202,7 +218,7 @@ def scoring_function(data, selected_thema, selected_hauptbereich, profile):
     # iterate over columns and distribute scores
     for column in data.columns:
         max_count = 0
-        if column in ["Thema","Hauptbereich","Nebenbereiche"]:
+        if column in ["Thema","Hauptbereich","Verknüpfte Themen"]:
             for idx, value in data[column].items():
                 if isinstance(value, str):
                     column_values = value.split(",")
@@ -229,7 +245,7 @@ def scoring_function(data, selected_thema, selected_hauptbereich, profile):
                     scores.at[idx, column] = 0.75
 
     # Normalize the scores per column
-    to_normalize = ["Nebenbereiche"]
+    to_normalize = ["Verknüpfte Themen"]
     for column in to_normalize:
         scores[column] = scores[column] / max_entries[column]
 

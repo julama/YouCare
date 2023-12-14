@@ -3,14 +3,17 @@
 
 
 Zusammenfassung
-Angenehme Aktivitäten sind wichtig für Menschen mit Demenz, um ihre Fähigkeiten aufrechtzuerhalten und ihre Gemütsverfassung zu stabilisieren. Es wird empfohlen, Aktivitäten zu wählen, die Spaß machen und zur persönlichen Situation von Pflegenden und Kranken sowie zur Krankheitsentwicklung passen. Gemeinsame Beschäftigungen können helfen, Situationen ruhiger anzugehen und die noch bestehenden Fähigkeiten der erkrankten Person zu wertschätzen. Es ist wichtig, die betroffene Person nach ihren Wünschen zu fragen und Aktivitäten auszuwählen, mit denen sie vertraut ist. Achten Sie dabei als pflegende Angehörige immer auch auf Ihre eigenen Bedürfnisse 
+Angenehme Aktivitäten sind wichtig für Menschen mit Demenz, um ihre Fähigkeiten aufrechtzuerhalten und ihre Gemütsverfassung zu stabilisieren. Es wird empfohlen, Aktivitäten zu wählen, die Spaß machen und zur persönlichen Situation von pflegenden Angehörigen und Kranken sowie zur Krankheitsentwicklung passen. Gemeinsame Beschäftigungen können helfen, Situationen ruhiger anzugehen und die noch bestehenden Fähigkeiten der erkrankten Person zu wertschätzen. Es ist wichtig, die betroffene Person nach ihren Wünschen zu fragen und Aktivitäten auszuwählen, mit denen sie vertraut ist. Achten Sie dabei als pflegende Angehörige immer auch auf Ihre eigenen Bedürfnisse. 
 
 
 
 Herausforderungen
 1. Die Person vergisst, welche Aktivitäten sie gerne macht oder hat keine Interessen mehr. Es kann schwierig sein, Aktivitäten zu finden, die der Person Freude bereiten und sie motivieren.
+3,7,6
 2. Die Fähigkeiten der Person können im Tagesverlauf schwanken, so dass eine Aktivität am Morgen problemlos erledigt wird, aber am Nachmittag schwerfällt. Es kann herausfordernd sein, Aktivitäten zu finden, die der Person zu verschiedenen Tageszeiten angenehm sind.
+2,4,9,10
 3. Die Person hat Schwierigkeiten, ihre Aufgaben zu organisieren und zu strukturieren. Es kann schwierig sein, Aktivitäten zu finden, die der Person helfen, sich zu organisieren und ihre Fähigkeiten zu verbessern. 
+1,2,5,
 
 
 
@@ -22,10 +25,9 @@ Hilfestellungen
 5. Wertschätzen Sie die noch bestehenden Fähigkeiten der erkrankten Person, statt sich auf das zu konzentrieren, was sie nicht mehr tun kann. 
 6. Schlagen Sie nicht mehr als zwei Aktivitäten vor und geben Sie nur eine Anweisung auf einmal. 
 7. Machen Sie etwas vor und laden Sie die betroffene Person ein, dies nachzumachen. 
-
-9. Ermutigen und loben Sie die betroffene Person und fragen Sie sie, ob ihr die Tätigkeit gefallen hat und ob sie sie wieder tun möchte. 
-10. Stecken Sie die Ziele nicht zu hoch und erwarten Sie nicht, dass die Aufgabe besonders schnell oder perfekt erledigt wird. 
-11. Brechen Sie die Aktivität ab, wenn die betroffene Person müde ist oder dies möchte und passen Sie sich ihrem Rhythmus an. 
-12. Achten Sie bei allen Aktivitäten auf die Sicherheit, ohne jedoch die Autonomie der betroffenen Person zu sehr einzuschränken. 
-13. Nehmen Sie als pflegende Angehörige auch Ihre eigenen Bedürfnisse ernst. 
+8. Ermutigen und loben Sie die betroffene Person und fragen Sie sie, ob ihr die Tätigkeit gefallen hat und ob sie sie wieder tun möchte. 
+9. Stecken Sie die Ziele nicht zu hoch und erwarten Sie nicht, dass die Aufgabe besonders schnell oder perfekt erledigt wird. 
+10. Brechen Sie die Aktivität ab, wenn die betroffene Person müde ist oder dies möchte und passen Sie sich ihrem Rhythmus an. 
+11. Achten Sie bei allen Aktivitäten auf die Sicherheit, ohne jedoch die Autonomie der betroffenen Person zu sehr einzuschränken. 
+12. Nehmen Sie als pflegende Angehörige auch Ihre eigenen Bedürfnisse ernst. 
 
