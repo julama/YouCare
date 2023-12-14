@@ -1,7 +1,7 @@
 import streamlit as st
 import gspread as gs
 import pandas as pd
-from config import to_hide_pages, to_show_pages
+from config import to_hide_pages
 from st_pages import show_pages, hide_pages, show_pages_from_config
 import hashlib
 from streamlit_extras.switch_page_button import switch_page
