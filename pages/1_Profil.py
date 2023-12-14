@@ -127,7 +127,7 @@ st.session_state.profile = {
 ## Themen
 ############
 
-file_path = "assets/Kategorien_Sortierkriterien_neu.csv"
+file_path = "assets/Kategorien_Sortierkriterien.csv"
 data = load_data(file_path)
 
 #################
