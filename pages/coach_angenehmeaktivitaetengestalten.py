@@ -1,7 +1,6 @@
-import streamlit as st
 from utils import *
 from streamlit_extras.switch_page_button import switch_page
-from coach_tools import parse_text_file2
+#from coach_tools import parse_text_file2
 from config import to_hide_pages
 from st_pages import hide_pages
 
@@ -34,8 +33,6 @@ def parse_new_text_file(file_content):
                 sections[current_section].append(line)
 
     return sections
-
-
 
 hide_pages(to_hide_pages)
 name = "Angenehme Aktivitäten gestalten"

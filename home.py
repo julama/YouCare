@@ -6,13 +6,12 @@ from st_pages import show_pages, hide_pages
 import hashlib
 from streamlit_extras.switch_page_button import switch_page
 st.set_page_config(layout="wide")
+show_pages(to_show_pages)
+hide_pages(to_hide_pages)
 
 # Hashing function
 def hash_password(password):
     return hashlib.sha256(password.encode()).hexdigest()
-
-show_pages(to_show_pages)
-hide_pages(to_hide_pages)
 
 #todo: add disclaimer-> Es ist eine Testversion, es kann sein...
 st.title('Willkommen bei You+Care, deinem persönlichen Pflege Ratgeber')
