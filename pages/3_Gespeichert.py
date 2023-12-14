@@ -41,7 +41,7 @@ user_index=st.session_state['User_index']
 desired_row = df.iloc[user_index-2]
 stored_total_time, stored_click_count = desired_row.loc['total_time_spent':'click_count']
 
-file_path = "assets/Kategorien_Sortierkriterien_neu.csv"
+file_path = "assets/Kategorien_Sortierkriterien.csv"
 data = load_data(file_path)
 
 # Initialize session state

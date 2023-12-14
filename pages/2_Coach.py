@@ -6,7 +6,7 @@ from st_pages import add_page_title, hide_pages
 hide_pages(to_hide_pages)
 add_page_title()
 
-file_path = "assets/Kategorien_Sortierkriterien_neu.csv"
+file_path = "assets/Kategorien_Sortierkriterien.csv"
 data = load_data(file_path)
 
 #intialize session state:
