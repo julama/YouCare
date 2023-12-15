@@ -1,20 +1,20 @@
 [[pages]]
-path = "home.py"
+path = "login.py"
 name = "Login"
 icon = "🏠"
 
 [[pages]]
-path = "pages/1_Profil.py"
+path = "pages/1_👤_Profil.py"
 name = "Profil"
 icon = "👤"
 
 [[pages]]
-path = "pages/2_Coach.py"
+path = "pages/2_🧑‍🏫_Ratgeber.py"
 name = "Ratgeber"
 icon = ":teacher:"
 
 [[pages]]
-path = "pages/3_Gespeichert.py"
+path = "pages/3_📚_Meine Sammlung.py"
 name = "Meine Sammlung"
 icon = ":books:"
 

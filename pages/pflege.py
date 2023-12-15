@@ -6,7 +6,7 @@ from config import to_hide_pages, emoji_dict
 from st_pages import add_page_title, hide_pages
 hide_pages(to_hide_pages)
 
-name = "Pflege und Betreuung"
+name = "Pflege"
 file_path = "assets/Kategorien_Sortierkriterien.csv"
 data = load_data(file_path)
 emoji_values = list(emoji_dict.values())

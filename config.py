@@ -1,10 +1,10 @@
 # from st_pages import Page
 #
 # to_show_pages =[
-#         Page('home.py', "Login", "🏠"),
-#         Page("pages/1_Profil.py", "Profil", "👤"),
-#         Page("pages/2_Coach.py", "Ratgeber", ":teacher:"),
-#         Page("pages/3_Gespeichert.py", "Meine Sammlung", ":books:"),
+#         Page('Login.py', "Login", "🏠"),
+#         Page("pages/1_👤_Profil.py", "Profil", "👤"),
+#         Page("pages/2_🧑‍🏫_Ratgeber.py", "Ratgeber", ":teacher:"),
+#         Page("pages/3_📚_Meine Sammlung.py", "Meine Sammlung", ":books:"),
 #         Page("pages/coach_entlastungsangebote.py", "Entlastungsangebote"),
 #         Page("pages/coach_vorsorgeauftrag.py", "Vorsorgeauftrag"),
 #         Page("pages/coach_urteilsfaehigkeit.py", "Urteilsfaehigkeit"),
@@ -17,7 +17,7 @@
 #         Page("pages/coach_weglaufen.py", "Weglaufen"),
 #         Page("pages/coach_essenundtrinken.py", "Essen und Trinken"),
 #         Page("pages/coach_inkontinenz.py", "Inkontinenz"),
-#         Page("pages/coach_abklaerungunddiagnose.py", "Abklaerung und Diagnose"),
+#         Page("pages/abklaerung und diagnose.py", "Abklaerung und Diagnose"),
 #         Page("pages/coach_finanzielleansprueche.py", "Finanzielle Ansprueche"),
 #         Page("pages/coach_autofahren.py", "Autofahren"),
 #         Page("pages/coach_schlafstoerungen.py", "Schlafstoerungen"),
@@ -34,7 +34,7 @@
 #         Page("pages/coach_krankheitswissendemenz.py", "Krankheitswissen Demenz"),
 #         Page("pages/coach_pflegeundbetreuung.py", "Pflege und Betreuung"),
 #         Page("pages/coach_alltagaktivgestalten.py", "Alltag aktiv gestalten"),
-#         Page("pages/coach_achtsamkeitsuebungen.py", "Achtsamkeitsuebungen"),
+#         Page("pages/achtsamkeitsuebungen.py", "Achtsamkeitsuebungen"),
 #         Page("pages/coach_selbstfuersorge.py", "Selbstfuersorge")
 #     ]
 
