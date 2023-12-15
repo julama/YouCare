@@ -1,6 +1,9 @@
 from st_pages import Page
+import os
+# Assuming 'home.py' is in the same directory as your main app file
+home_path = os.path.join(os.path.dirname(__file__), 'home.py')
 to_show_pages =[
-        Page("home.py", "Login", "🏠"),
+        Page(home_path, "Login", "🏠"),
         Page("pages/1_Profil.py", "Profil", "👤"),
         Page("pages/2_Coach.py", "Ratgeber", ":teacher:"),
         Page("pages/3_Gespeichert.py", "Meine Sammlung", ":books:"),
