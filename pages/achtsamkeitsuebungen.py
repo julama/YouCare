@@ -4,7 +4,7 @@ from coach_tools import parse_text_file2
 from config import to_hide_pages
 from st_pages import hide_pages
 
-hide_pages(to_hide_pages)
+#hide_pages(to_hide_pages)
 name = "Achtsamkeitsübungen"
 
 file_path = "assets/Kategorien_Sortierkriterien.csv"
