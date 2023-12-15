@@ -17,10 +17,8 @@ if 'profile' not in st.session_state:
 if not st.session_state['User_index']:
     st.warning("Bitte logge dich zuerst ein")
     if st.button('Login'):
-        try:
-            switch_page("Login")
-        except:
-            switch_page("home")
+        switch_page("Login")
+
     else:
         st.stop()
 user_index=st.session_state['User_index']
@@ -280,10 +278,7 @@ if st.session_state.get('profile'):
         elapsed_time = time.time() - st.session_state.start_time
         st.session_state.total_time_spent += elapsed_time
         st.session_state.start_time = time.time()
-        try:
-            switch_page("Ratgeber")
-        except:
-            switch_page("coach")
+        switch_page("Ratgeber")
 
 
 
