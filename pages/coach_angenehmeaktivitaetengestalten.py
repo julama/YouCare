@@ -42,7 +42,10 @@ data = load_data(file_path)
 HK = data[data['Thema'].apply(normalize_string) == normalize_string(name)]['Hauptbereich'].iloc[0]
 
 if st.button('Zurück'):
-    switch_page("Ratgeber")
+    try:
+        switch_page("Ratgeber")
+    except:
+        switch_page("coach")
 
 # Read the new .txt file
 with open(f"resources/docs/{umlauts(name)}.txt", "r", encoding="utf-8") as file:

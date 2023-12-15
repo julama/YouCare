@@ -5,7 +5,7 @@ from config import to_hide_pages
 from st_pages import show_pages, hide_pages, show_pages_from_config
 import hashlib
 from streamlit_extras.switch_page_button import switch_page
-st.set_page_config(layout="wide")
+#st.set_page_config(layout="wide")
 
 show_pages_from_config()
 #show_pages(to_show_pages)
