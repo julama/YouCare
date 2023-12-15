@@ -2,8 +2,7 @@ from utils import *
 import gspread as gs
 from streamlit_extras.switch_page_button import switch_page
 from config import to_hide_pages, emoji_dict
-from st_pages import add_page_title, hide_pages, show_pages,show_pages_from_config
-#show_pages(to_show_pages)
+from st_pages import add_page_title, hide_pages,show_pages_from_config
 show_pages_from_config()
 hide_pages(to_hide_pages)
 add_page_title()
