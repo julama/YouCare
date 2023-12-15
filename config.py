@@ -1,7 +1,7 @@
 # from st_pages import Page
 #
 # to_show_pages =[
-#         Page('Login.py', "Login", "🏠"),
+#         Page('login.py', "Login", "🏠"),
 #         Page("pages/1_👤_Profil.py", "Profil", "👤"),
 #         Page("pages/2_🧑‍🏫_Ratgeber.py", "Ratgeber", ":teacher:"),
 #         Page("pages/3_📚_Meine Sammlung.py", "Meine Sammlung", ":books:"),
