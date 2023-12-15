@@ -34,7 +34,7 @@ def parse_new_text_file(file_content):
 
     return sections
 
-#hide_pages(to_hide_pages)
+hide_pages(to_hide_pages)
 name = "Angenehme Aktivitäten gestalten"
 
 file_path = "assets/Kategorien_Sortierkriterien.csv"

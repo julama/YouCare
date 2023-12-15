@@ -18,157 +18,158 @@ path = "pages/3_📚_Meine Sammlung.py"
 name = "Meine Sammlung"
 icon = ":books:"
 
-#[[pages]]
-#path = "pages/coach_entlastungsangebote.py"
-#name = "Entlastungsangebote"
-#icon = ""
-#
-#[[pages]]
-#path = "pages/coach_vorsorgeauftrag.py"
-#name = "Vorsorgeauftrag"
-#icon = ""
-#
-#[[pages]]
-#path = "pages/coach_urteilsfaehigkeit.py"
-#name = "Urteilsfaehigkeit"
-#icon = ""
-#
-#[[pages]]
-#path = "pages/coach_angenehmeaktivitaetengestalten.py"
-#name = "Angenehme Aktivitaeten gestalten"
-#icon = ""
-#
-#[[pages]]
-#path = "pages/coach_anundauskleiden.py"
-#name = "An- und Auskleiden"
-#icon = ""
-#
-#[[pages]]
-#path = "pages/coach_patientenverfuegung.py"
-#name = "Patientenverfuegung"
-#icon = ""
-#
-#[[pages]]
-#path = "pages/coach_zaehneputzen.py"
-#name = "Zaehneputzen"
-#icon = ""
-#
-#[[pages]]
-#path = "pages/coach_koerperpflegeundtoilette.py"
-#name = "Koerperpflege und Toilette"
-#icon = ""
-#
-#[[pages]]
-#path = "pages/coach_sexualitaet.py"
-#name = "Sexualitaet"
-#icon = ""
-#
-#[[pages]]
-#path = "pages/coach_weglaufen.py"
-#name = "Weglaufen"
-#icon = ""
-#
-#[[pages]]
-#path = "pages/coach_essenundtrinken.py"
-#name = "Essen und Trinken"
-#icon = ""
-#
-#[[pages]]
-#path = "pages/coach_inkontinenz.py"
-#name = "Inkontinenz"
-#icon = ""
-#
-#[[pages]]
-#path = "pages/coach_abklaerungunddiagnose.py"
-#name = "Abklaerung und Diagnose"
-#icon = ""
-#
-#[[pages]]
-#path = "pages/coach_finanzielleansprueche.py"
-#name = "Finanzielle Ansprueche"
-#icon = ""
-#
-#[[pages]]
-#path = "pages/coach_autofahren.py"
-#name = "Autofahren"
-#icon = ""
-#
-#[[pages]]
-#path = "pages/coach_schlafstoerungen.py"
-#name = "Schlafstoerungen"
-#icon = ""
-#
-#[[pages]]
-#path = "pages/coach_schwierigegespraechssituationen.py"
-#name = "Schwierige Gespraechssituationen"
-#icon = ""
-#
-#[[pages]]
-#path = "pages/coach_schmerzen.py"
-#name = "Schmerzen"
-#icon = ""
-#
-#[[pages]]
-#path = "pages/coach_umgangmitaggressionen.py"
-#name = "Umgang mit Aggressionen"
-#icon = ""
-#
-#[[pages]]
-#path = "pages/coach_wohnanpassungenundhilfsmittel.py"
-#name = "Wohnanpassungen und Hilfsmittel"
-#icon = ""
-#
-#[[pages]]
-#path = "pages/coach_vorsorgeundfinanzierung.py"
-#name = "Vorsorge und Finanzierung"
-#icon = ""
-#
-#[[pages]]
-#path = "pages/coach_behandlung.py"
-#name = "Behandlung"
-#icon = ""
-#
-#[[pages]]
-#path = "pages/coach_sichverstaendigen.py"
-#name = "Sich verstaendigen"
-#icon = ""
-#
-#[[pages]]
-#path = "pages/coach_unterstuetzungfuerangehoerige.py"
-#name = "Unterstuetzung fuer Angehoerige"
-#icon = ""
-#
-#[[pages]]
-#path = "pages/coach_nachderdiagnose.py"
-#name = "Nach der Diagnose"
-#icon = ""
-#
-#[[pages]]
-#path = "pages/coach_herausforderndesituationen.py"
-#name = "Herausfordernde Situationen"
-#icon = ""
-#
-#[[pages]]
-#path = "pages/coach_krankheitswissendemenz.py"
-#name = "Krankheitswissen Demenz"
-#icon = ""
-#
-#[[pages]]
-#path = "pages/coach_pflegeundbetreuung.py"
-#name = "Pflege und Betreuung"
-#icon = ""
-#
-#[[pages]]
-#path = "pages/coach_alltagaktivgestalten.py"
-#name = "Alltag aktiv gestalten"
-#icon = ""
-#
-#[[pages]]
-#path = "pages/coach_achtsamkeitsuebungen.py"
-#name = "Achtsamkeitsuebungen"
-#icon = ""
-#
-#[[pages]]
-#path = "pages/coach_selbstfuersorge.py"
-#name = "Selbstfuersorge"
-#icon = ""
+[[pages]]
+path = "pages/entlastungsangebote.py"
+name = "Entlastungsangebote"
+icon = ""
+
+[[pages]]
+path = "pages/vorsorgeauftrag.py"
+name = "Vorsorgeauftrag"
+icon = ""
+
+[[pages]]
+path = "pages/urteilsfaehigkeit.py"
+name = "Urteilsfaehigkeit"
+icon = ""
+
+[[pages]]
+path = "pages/angenehme aktivitaeten gestalten.py"
+name = "Angenehme Aktivitaeten gestalten"
+icon = ""
+
+[[pages]]
+path = "pages/an- und auskleiden.py"
+name = "An- und Auskleiden"
+icon = ""
+
+[[pages]]
+path = "pages/patientenverfuegung.py"
+name = "Patientenverfuegung"
+icon = ""
+
+[[pages]]
+path = "pages/zaehneputzen.py"
+name = "Zaehneputzen"
+icon = ""
+
+[[pages]]
+path = "pages/koerperpflege und toilette.py"
+name = "Koerperpflege und Toilette"
+icon = ""
+
+[[pages]]
+path = "pages/sexualitaet.py"
+name = "Sexualitaet"
+icon = ""
+
+[[pages]]
+path = "pages/weglaufen.py"
+name = "Weglaufen"
+icon = ""
+
+[[pages]]
+path = "pages/essen und trinken.py"
+name = "Essen und Trinken"
+icon = ""
+
+[[pages]]
+path = "pages/inkontinenz.py"
+name = "Inkontinenz"
+icon = ""
+
+[[pages]]
+path = "pages/abklaerung und diagnose.py"
+name = "Abklaerung und Diagnose"
+icon = ""
+
+[[pages]]
+path = "pages/finanzielle ansprueche.py"
+name = "Finanzielle Ansprueche"
+icon = ""
+
+[[pages]]
+path = "pages/autofahren.py"
+name = "Autofahren"
+icon = ""
+
+[[pages]]
+path = "pages/schlafstoerungen.py"
+name = "Schlafstoerungen"
+icon = ""
+
+[[pages]]
+path = "pages/schwierige gespraechssituationen.py"
+name = "Schwierige Gespraechssituationen"
+icon = ""
+
+[[pages]]
+path = "pages/schmerzen.py"
+name = "Schmerzen"
+icon = ""
+
+[[pages]]
+path = "pages/umgang mit aggressionen.py"
+name = "Umgang mit Aggressionen"
+icon = ""
+
+[[pages]]
+path = "pages/wohnanpassungen und hilfsmittel.py"
+name = "Wohnanpassungen und Hilfsmittel"
+icon = ""
+
+[[pages]]
+path = "pages/vorsorge und finanzierung.py"
+name = "Vorsorge und Finanzierung"
+icon = ""
+
+[[pages]]
+path = "pages/behandlung.py"
+name = "Behandlung"
+icon = ""
+
+[[pages]]
+path = "pages/sich verstaendigen.py"
+name = "Sich verstaendigen"
+icon = ""
+
+[[pages]]
+path = "pages/unterstuetzung fuer angehoerige.py"
+name = "Unterstuetzung fuer Angehoerige"
+icon = ""
+
+[[pages]]
+path = "pages/nach der diagnose.py"
+name = "Nach der Diagnose"
+icon = ""
+
+[[pages]]
+path = "pages/herausfordernde situationen.py"
+name = "Herausfordernde Situationen"
+icon = ""
+
+[[pages]]
+path = "pages/krankheitswissen demenz.py"
+name = "Krankheitswissen Demenz"
+icon = ""
+
+[[pages]]
+path = "pages/pflege.py"
+name = "Pflege und Betreuung"
+icon = ""
+
+[[pages]]
+path = "pages/alltag aktiv gestalten.py"
+name = "Alltag aktiv gestalten"
+icon = ""
+
+[[pages]]
+path = "pages/achtsamkeitsuebungen.py"
+name = "Achtsamkeitsuebungen"
+icon = ""
+
+[[pages]]
+path = "pages/selbstfuersorge.py"
+name = "Selbstfuersorge"
+icon = ""
+

@@ -4,7 +4,7 @@ from streamlit_extras.switch_page_button import switch_page
 from coach_tools import parse_text_file2
 from config import to_hide_pages, emoji_dict
 from st_pages import add_page_title, hide_pages
-#hide_pages(to_hide_pages)
+hide_pages(to_hide_pages)
 
 name = "Alltag aktiv gestalten"
 file_path = "assets/Kategorien_Sortierkriterien.csv"

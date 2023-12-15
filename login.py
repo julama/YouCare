@@ -7,9 +7,9 @@ import hashlib
 from streamlit_extras.switch_page_button import switch_page
 from st_pages import Page
 st.set_page_config(layout="wide")
-#show_pages_from_config()
+show_pages_from_config()
 #show_pages(to_show_pages)
-#hide_pages(to_hide_pages)
+hide_pages(to_hide_pages)
 
 # Hashing function
 def hash_password(password):

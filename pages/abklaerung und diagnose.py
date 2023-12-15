@@ -5,7 +5,7 @@ from config import to_hide_pages
 from st_pages import hide_pages
 import streamlit as st
 
-#hide_pages(to_hide_pages)
+hide_pages(to_hide_pages)
 name = "Abklärung und Diagnose"
 
 file_path = "assets/Kategorien_Sortierkriterien.csv"
