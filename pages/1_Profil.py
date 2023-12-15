@@ -18,7 +18,6 @@ if not st.session_state['User_index']:
     st.warning("Bitte logge dich zuerst ein")
     if st.button('Login'):
         switch_page("Login")
-
     else:
         st.stop()
 user_index=st.session_state['User_index']
