@@ -1,5 +1,5 @@
 [[pages]]
-path = "YouCare/home.py"
+path = "home.py"
 name = "Login"
 icon = "🏠"
 
